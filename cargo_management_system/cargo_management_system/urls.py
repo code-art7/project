@@ -21,4 +21,5 @@ from django.conf.urls import include,url
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^admin_login_h/', views.admin_login),
+    path('cargoms/', include('django.contrib.auth.urls')),
 ]
