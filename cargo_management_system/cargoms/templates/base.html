@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Login Home</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        {% load static %}
+        <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css"></link>
+        <link href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"></link>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"></script>
+
+    </head>
+
+    <body class="b">
+      {% load crispy_forms_tags %}
+        <h1 class="cms" align="center"> <b>CARGO MANAGEMENT SYSTEM</b></h1>
+        <h3 class="alog" align="center"><b>ADMINISTRATION LOGIN</b></h3>
+        <br>
+        <form method="POST" action="/logged_in/">
+          {% csrf_token %}
+          <div class="col-6">
+          {{ form | crispy }}
+          <button type="submit">Submit</button>
+        </div>  
+        </form>
+        
+    </body>
+</html>

@@ -2,3 +2,5 @@ TO DO AND SCHEDULE
 
 # 20.02.2020
 - create actual login for home and grant different panel access
+
+create form structure ---> validate form ---> authenticate form ---> add user ---> login

@@ -1,17 +1,30 @@
 from django.shortcuts import render
+from django.contrib.auth import views as auth_views
+from .forms import login
 
-# Create your views here.
+"""def login(request):
+    return render(request, "base.html")"""
+
+"""def submit(request):
+    context ={}
+
+    form = login(request.POST or None, request.FILES or None)
+
+    if form.is_valid():
+        form.save()
+
+    context['form']=form
+    return render(request, "new.html", context)"""
+
 def admin_login(request):
-    return render(request, "admin_login_h.html")
+    if request.method == 'POST':
+        form = login(request.POST)
+        if form.is_valid():
+            pass  # does nothing, just trigger the validation
+    else:
+        form = login()
+    return render(request, 'base.html', {'form': form})
 
-def cust_details(request):
-    return render(request,"customer_details.html")
-
-def trans_details(request):
-    return render(request , "transaction_details.html")
-
-def bills(request):
-    return render(request , "billing.html")
-
-def cargo(request):
-    return render(request , "cargo_details.html")
+def logged_in(request):
+    return render(request, 'new.html')
+ 

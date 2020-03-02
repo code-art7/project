@@ -17,13 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from cargoms import views
 from django.conf.urls import include,url
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^admin_login_h/', views.admin_login),
-    url(r'^customer_details/', views.cust_details),
-    url(r'^transaction_details/',views.trans_details),
-    url(r'^billing/',views.bills),
-    url(r'^cargo_details/',views.cargo),
-    path('cargoms/', include('django.contrib.auth.urls')),
+    url(r'^admin_login/', views.admin_login),
+    url(r'^logged_in/', views.logged_in)
 ]
