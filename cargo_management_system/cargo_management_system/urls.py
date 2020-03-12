@@ -23,8 +23,6 @@ urlpatterns = [
     path('admin', admin.site.urls),
     url('', views.home, name="home"),
 
-   # url(r'^admin_login/', views.admin_login),
-    url(r'^registerUser/', views.registerUser, name="registerUser"),
-    url(r'^signin_v/',views.signin, name="signin"),
-    #url(r'^signin/',views.signin)
+    #url(r'^registerUser/', views.registerUser, name="registerUser"),
+    #url(r'^signin_v/',views.signin, name="signin"),
 ]

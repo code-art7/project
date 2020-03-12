@@ -2,7 +2,9 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <h3 align="center" style="color: rgb(245, 125, 45);"><B> ADMINSTRATION LOGIN</B></h3>
-    <form method="POST" action="/signin_v/" >
+<br>
+<br>
+    <form method="POST" action="/signin_v/" class="d-flex justify-content-center" >
       {% csrf_token %}
       <div class="col-6">  
       {{ signinform | crispy }}
