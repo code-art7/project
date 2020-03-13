@@ -4,11 +4,11 @@
 <h3 align="center" style="color: rgb(245, 125, 45);"><B> ADMINSTRATION LOGIN</B></h3>
 <br>
 <br>
-    <form method="POST" action="/signin_v/" class="d-flex justify-content-center" >
+    <form method="POST" class="d-flex justify-content-center" >
       {% csrf_token %}
       <div class="col-6">  
       {{ signinform | crispy }}
-      <button type="submit">SignIn</button>
+      <button type="submit" class="btn btn-primary" >SignIn</button>
     </div>  
     </form>
 

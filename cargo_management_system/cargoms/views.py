@@ -1,8 +1,15 @@
-from django.shortcuts import render
-from django.contrib.auth import views as auth_views
-from django.contrib.auth.forms import AuthenticationForm
-from .forms import login
+from django.shortcuts import render, HttpResponse, redirect
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .forms import SignUpForm, SignInForm
+
+def login(request):
+     form = SignInForm()
+     return render(request, 'login.html', { 'signinform' : form })
+
+def registerUser(request):
+     form = SignUpForm()
+     return render(request, 'registerUser.html', { 'registrationform': form })
 
 def home(request):
-     form = AuthenticationForm()
-     return render(request, 'login.html', { 'signinform' : form })
+     return render(request, 'home.html')
