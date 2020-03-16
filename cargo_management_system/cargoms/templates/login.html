@@ -4,12 +4,19 @@
 <h3 align="center" style="color: rgb(245, 125, 45);"><B> ADMINSTRATION LOGIN</B></h3>
 <br>
 <br>
-    <form method="POST" class="d-flex justify-content-center" >
+{% if messages %}      
+    {% for message in messages %}
+      <p style="color: red;"  class="d-flex justify-content-center" >{{ message }}</p>
+    {% endfor %}
+ {% endif %}
+    <form method="POST" action="/login/" class="d-flex justify-content-center" >
       {% csrf_token %}
       <div class="col-6">  
       {{ signinform | crispy }}
       <button type="submit" class="btn btn-primary" >SignIn</button>
     </div>  
     </form>
+<br>
+<br>    
 
 {% endblock %}    

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% block content2 %}
+{% block content %}
 <h3 align="center" style="color: rgb(245, 125, 45);"><B> REGISTER ADMIN</B></h3>
-<form method="POST" action=" {% url 'registerUser' %} " class="d-flex justify-content-center >
+<form method="POST" action="/registerUser/" class="d-flex justify-content-center" >
     {% csrf_token %}
     <div class="col-6">  
     {{ registrationform | crispy }}
