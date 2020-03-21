@@ -2,11 +2,12 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <h3 align="center" style="color: rgb(245, 125, 45);"><B> ADMINSTRATION LOGIN</B></h3>
+
 <br>
 <br>
 {% if messages %}      
     {% for message in messages %}
-      <p style="color: red;"  class="d-flex justify-content-center" >{{ message }}</p>
+      <p class="d-flex justify-content-center" class="col-6">{{ message }}</p>
     {% endfor %}
  {% endif %}
     <form method="POST" action="/login/" class="d-flex justify-content-center" >

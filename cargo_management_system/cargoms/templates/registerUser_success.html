@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if messages %}      
+    {% for message in messages %}
+      <p style="color: green;"  class="d-flex justify-content-center" >{{ message }}</p>
+    {% endfor %}
+ {% endif %}
+
+<h1 align="center" >WELCOME</h1>
+
+{% endblock %}

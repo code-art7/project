@@ -20,9 +20,10 @@ from django.conf.urls import include,url
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('admin', admin.site.urls),
+    path('admin/', admin.site.urls),
     url(r'^login/', views.login_v, name="login"),
+    url(r'^logout/',views.logout_v, name="logout"),
     url(r'^home/', views.home, name="home"),
     url(r'^registerUser/', views.registerUser, name="registerUser"),
-    #url(r'^signin_v/',views.signin, name="signin"),
+    #url(r'^cust_det/',views.cust_det, name="cust_det"),
 ]
