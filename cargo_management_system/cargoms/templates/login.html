@@ -1,23 +1,28 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h3 align="center" style="color: rgb(245, 125, 45);"><B> ADMINSTRATION LOGIN</B></h3>
 
 <br>
 <br>
 {% if messages %}      
-    {% for message in messages %}
-      <p class="d-flex justify-content-center" class="col-6">{{ message }}</p>
-    {% endfor %}
- {% endif %}
-    <form method="POST" action="/login/" class="d-flex justify-content-center" >
+{% for message in messages %}
+<p  class="ad " >{{ message }}</p>
+{% endfor %}
+{% endif %}
+<div class="ad ">
+  <h3 style="color: rgb(1, 3, 32);" ><B> ADMINSTRATION LOGIN</B></h3>
+</div>
+<form method="POST" action="/login/" class="d-flex justify-content-start" >
       {% csrf_token %}
-      <div class="col-6">  
+      <div class="col-6" >
+          <br>
       {{ signinform | crispy }}
       <button type="submit" class="btn btn-primary" >SignIn</button>
     </div>  
+    <br>
+   
+    <div class="status" align="center">
+      LOGIN TO SEE TODAY'S STATUS
     </form>
-<br>
-<br>    
-
+</div>
 {% endblock %}    

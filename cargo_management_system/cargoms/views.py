@@ -16,7 +16,11 @@ def login_v(request):
         if user is not None:
             auth.login(request, user)
             
-            return render(request, 'customer_details.html')
+            det = employee_Details.objects.all()
+            for entry in det:
+                print(entry.e_name)
+
+            return render(request, 'home.html', { 'details' : det })
  
         else:
             messages.error(request, 'Error wrong username/password')

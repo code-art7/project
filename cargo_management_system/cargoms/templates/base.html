@@ -14,9 +14,29 @@
     </head>
 
     <body class="b">
+        {% load crispy_forms_tags %}
 
-      {% load crispy_forms_tags %}
-        <h1 class="cms" align="center"> <b>CARGO MANAGEMENT SYSTEM</b></h1>
+        
+        <div class="header" >
+            <div>
+                CARGO MANAGEMENT SYSTEM
+                {% for det in details %}
+                {% if user.is_authenticated %}
+                {% if request.user.username == det.e_userName %}
+                <form class="logout" action="/logout/" style="float: right;">
+                    {{ det.e_name | title }}  |  
+                    <button type="submit" class="btn btn-primary" >LOGOUT</button>
+                </form>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div >
+
+            
+            {% block content2 %}
+            {% endblock %}
+
         <br>
         {% block content %}
         {% endblock %}
