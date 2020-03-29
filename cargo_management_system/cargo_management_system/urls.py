@@ -25,5 +25,12 @@ urlpatterns = [
     url(r'^logout/',views.logout_v, name="logout"),
     url(r'^home/', views.home, name="home"),
     url(r'^registerUser/', views.registerUser, name="registerUser"),
-    #url(r'^cust_det/',views.cust_det, name="cust_det"),
+    url(r'^cust_det/',views.cust_det, name="cust_det"),
+    url(r'^cargo_details', views.cargo_det, name="cargo_det"),
+    url(r'^transactions_details', views.trans_det, name="trans_det"),
+    url(r'^billing_details', views.bill_det, name="bill_det"),
+    url(r'^enquiry', views.enquiry_, name="enquiry_"),
+    url(r'^time_of_delivery_management', views.t_o_d, name="t_o_d"),
+
+
 ]

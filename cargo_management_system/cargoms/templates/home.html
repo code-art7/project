@@ -3,23 +3,79 @@
 
 {% block content %}
 <div class="ad ">
-    <h3 style="color: rgb(1, 3, 32);" ><B> WELCOME</B></h3>
+    <h3 style="color: rgb(1, 3, 32);" ><B> </B></h3>
   </div>
   <div class="d-flex justify-content-start"  >
         {% csrf_token %}
-        <div class="col-6" style="padding: 10% 15%;">
-       HELLO WORLD
+        <div class="col-6" style="padding: 5% 10%;">
+       PERMITTED ACCESS TO
+      <br>
+       {% for i in l1 %}
+       {% for a in per_data %}
+       {% if i == a.per %}
+          <br>
+       {% if a.Description == 'Customer Details' %}
+       <a href="{% url 'cust_det' %}"> * {{ a.Description }} </a>
+       <br>  
+       {% endif %}
+
+       {% if a.Description == 'Cargo Details' %}
+       <a href="{% url 'cargo_det' %}"> * {{ a.Description }} </a>
+       <br>
+       {% endif %}
+
+       {% if a.Description == 'Transaction Details' %}
+       <a href="{% url 'trans_det' %}"> * {{ a.Description }} </a>
+       <br>
+       {% endif %}
+
+       {% if a.Description == 'Time of Delivery Manegement' %}
+       <a href="{% url 't_o_d' %}"> * {{ a.Description }} </a>
+       <br>
+       {% endif %}
+
+       {% if a.Description == 'Billing management' %}
+       <a href="{% url 'bill_det' %}"> * {{ a.Description }} </a>
+       <br>
+       {% endif %}
+
+       {% if a.Description == 'Enquiry' %}
+       <a href="{% url 'enquiry_' %}"> * {{ a.Description }} </a>
+       <br>
+       {% endif %}
+
+       {% endif %}
+       {% endfor %}
+       {% endfor %}
+      
+        
       </div>  
       <br>
-     
+      
       <div class="status" align="center" style="font-size: medium;">
         {% for det in details %}
-                {% if user.is_authenticated %}
-                {% if request.user.username == det.e_userName %}
-                    WELCOME {{ det.e_name | title }} <br>
-                    USERNAME : {{ det.e_userName }} <br>
-                    ID NO : {{ det.eid_no }} <br>
+        {% if user.is_authenticated %}
+        {% if request.user.username == det.e_userName %}
+        <div class="wel"> WELCOME {{ det.e_name | title }} </div>
 
+        <table class="d-flex justify-content-center" >
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>USERNAME</td>
+            <td>:</td>
+            <td>{{ det.e_userName }}</td>
+          </tr>
+          <tr>
+            <td>ID NO</td>
+            <td>:</td>
+            <td>{{ det.eid_no }}</td>
+          </tr>
+         
+        </table>
                 {% endif %}
                 {% endif %}
                 {% endfor %}

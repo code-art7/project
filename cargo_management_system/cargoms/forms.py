@@ -3,12 +3,21 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
+
+
 class SignUpForm(UserCreationForm):
     full_name = forms.CharField(label='Full Name', max_length=100 , required=True)
     employee_Id = forms.IntegerField(label='Employee ID', min_value=4, required=True)
     username = forms.CharField(label='login ID', min_length=6, max_length=10, required=True)
     email = forms.EmailField(label='E-mail', max_length=150, required=True)
-    permissionId = forms.CharField( label='Permission ID', max_length=6, required=True)
+    #permissions
+    Customer = forms.BooleanField(label="Customer Details", help_text="Select for provide Access to Customer Details ", required=False)
+    Billing = forms.BooleanField(label="Billing Details", help_text="Select for provide Access to Billing Details ",required=False)
+    Cargo = forms.BooleanField(label="Cargo Details", help_text="Select for provide Access to Cargo Details ", required=False)
+    Transactions = forms.BooleanField(label="Transations Details", help_text="Select for provide Access to Transactions Details ", required=False)
+    Time_of_Delivery = forms.BooleanField(label="Time of Delivery Details", help_text="Select for provide Access to Time of Delivery Details ", required=False) 
+    Enquiry = forms.BooleanField(label="Enquiry", help_text="Select for provide Access to Enquiry management ", required=False)
+
     contact = forms.CharField(label='Mobile Number', max_length=10, required=True)
     address = forms.CharField(label='Address', max_length=150, required=True)
     
@@ -45,7 +54,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'full_name', 'employee_Id','email', 'permissionId', 'contact', 'address')
+        fields = ('username', 'full_name', 'employee_Id', 'Customer', 'Billing', 'Cargo', 'Transactions', 'Time_of_Delivery', 'Enquiry','email', 'contact', 'address')
 
 class SignInForm(AuthenticationForm):
     username = forms.CharField( label='Login ID', max_length=100)
