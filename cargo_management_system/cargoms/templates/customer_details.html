@@ -1,68 +1,61 @@
+<head>
+  <style>
+    table{
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid rgb(15, 2, 2);
+  }
+  </style>
+</head>
+
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+<style>
+  table {
+    
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid rgb(15, 2, 2);
+  }
+
+</style>
+
+{% block content2 %}
+<div class="d-flex justify-content-end ">
+  <a href="{% url 'add_entry' %}" class="btn btn-primary" style="margin: 5px;"> ADD ENTRY</a>
+  <a href="{% url 'logout' %}" class="btn btn-primary" style="margin: 5px;">LOG OUT</a>
+
+</div>
+{% endblock %}
 {% block content %}
+<h3>CUSTOMER DETAILS</h3>
+<table>
+  <tr >
+    <td><b>ORDER ID</b></td>
+    <td><b>CUSTOMER NAME</b></td>
+    <td><b>CUSTOMER CONTACT</b></td>
+    <td><b>RECIEVER NAME</b></td>
+    <td><b>RECIEVER CONTACT</b></td>
+    <td><b>RECIEVER CITY</b></td>
+    {% for c_d in c_data %}
+  </tr>
+    <td>{{c_d.order_id}}</td>
+    <td>{{c_d.cust_name}}</td>
+    <td>{{c_d.s_contact}}</td>
+    <td>{{c_d.r_name}}</td>
+    <td>{{c_d.r_contact}}</td>
+    <td>{{c_d.r_city}}</td>
+    <td><a href="{% url 'expend' %}" class="btn btn-primary ">EXPEND</a></td>
+    {% endfor %}
+</table>  
 
-        <form method="POST" action={% url 'logout' %}>
-            {% csrf_token %}
-            <div class="col-6">  
-            <button type="submit" class="btn btn-primary">LOG OUT</button>
-          </div>
-        
-        <h1 style="text-align: center;">Cargo Management Details</h1>
-        <h2 style="text-align: center;">Customer Details</h2>
-        <table style="width: 100%;">
-            <tr>
-                <th>Order Id</th>
-                <th>Customer Name</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Amount</th>
-                <th>Shipment Date</th>
-                <th>Status</th>
-            </tr>
-            <tr >
-                <td>1234</td>
-                <td>Name</td>
-                <td>desc</td>
-                <td>quan</td>
-                <td>rate</td>
-                <td>amt</td>
-                <td>date</td>
-                <td>Pending</td>
-            </tr>
-
-            <tr >
-                <td>1234</td>
-                <td>Name</td>
-                <td>desc</td>
-                <td>quan</td>
-                <td>rate</td>
-                <td>amt</td>
-                <td>date</td>
-                <td>Pending</td>
-            </tr>
-
-            <tr >
-                <td>1234</td>
-                <td>Name</td>
-                <td>desc</td>
-                <td>quan</td>
-                <td>rate</td>
-                <td>amt</td>
-                <td>date</td>
-                <td>Processed</td>
-            </tr>
-
-            <tr >
-                <td>1234</td>
-                <td>Name</td>
-                <td>desc</td>
-                <td>quan</td>
-                <td>rate</td>
-                <td>amt</td>
-                <td>date</td>
-                <td>Delivered</td>
-            </tr>
-        </table>
 {% endblock %}

@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='transcDetails',
             fields=[
-                ('t_id', models.IntegerField(primary_key=True, serialize=False)),
+                ('t_id', models.IntegerField( serialize=False)),
                 ('t_amt', models.IntegerField()),
                 ('t_date', models.DateField()),
             ],

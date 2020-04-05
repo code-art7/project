@@ -4,8 +4,9 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import SignUpForm, SignInForm
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
-from .models import employee_Details, per_table
+from .models import employee_Details, per_table, cust_details, cust_pkg_details
 import datetime
+from cargoms.forms import sender_details_form,receiver_details_form,cust_pkg_form
 
 def home(request):
     det = employee_Details.objects.all()
@@ -108,7 +109,6 @@ def registerUser(request):
 
             permissionId = res
 
-            print(permissionId)
             user_details = employee_Details(e_userName=username, e_name=full_name, e_mail=email, e_contact=mobile, e_add=address, e_per_id=permissionId,eid_no=e_id)
             user_details.save()
 
@@ -124,7 +124,9 @@ def logout_v(request):
     return redirect('login')
 
 def cust_det(request):
-    return render(request, 'customer_details.html')     
+    c_data = cust_details.objects.all()
+    p_data = cust_pkg_details.objects.all()
+    return render(request, 'customer_details.html', { 'c_data' : c_data, 'p_data': p_data })     
 
 def cargo_det(request):
     return render(request, 'cargo_details.html')
@@ -140,3 +142,46 @@ def t_o_d(request):
 
 def enquiry_(request):
     return render(request, 'enquiry.html')
+
+def add_entry(request):
+    s_form = sender_details_form()
+    r_form = receiver_details_form()
+    p_form = cust_pkg_form()
+    return render(request, 'add_entry.html', { 's_form' : s_form, 'r_form': r_form, 'p_form': p_form })
+
+def cust_save(request):
+    if request.method == 'POST':
+        order_id = request.POST['order_id']
+        cust_name = request.POST['cust_name']
+        s_contact = request.POST['s_contact']
+        s_add = request.POST['s_add']
+        s_city = request.POST['s_city']
+        s_pincode = request.POST['s_pincode']
+
+        r_name = request.POST['r_name']
+        r_contact = request.POST['r_contact']
+        r_add = request.POST['r_add']
+        r_city = request.POST['r_city']
+        r_pincode = request.POST['r_pincode']
+
+        pkg_r_date = request.POST['pkg_r_date']
+        pkg_r_time = request.POST['pkg_r_time']
+        pkg_d_date = request.POST['pkg_d_date']
+        pkg_d_time = request.POST['pkg_d_time']
+        pkg_weight = request.POST['pkg_weight']
+        ship_service_type = request.POST['ship_service_type']
+
+        c_det = cust_details(order_id=order_id, cust_name=cust_name, s_contact=s_contact, s_add=s_add, s_city=s_city, s_pincode=s_pincode, r_name=r_name, r_contact=r_contact, r_add=r_add, r_city=r_city,r_pincode=r_pincode)
+        
+        c_det.save()
+
+        p_det = cust_pkg_details(order_id=order_id, cust_name=cust_name, pkg_r_date=pkg_r_date, pkg_r_time=pkg_r_time, pkg_d_date=pkg_d_date,pkg_d_time=pkg_d_time, pkg_weight=pkg_weight, pkg_ship_add=r_add, pkg_ship_city=r_city, pkg_ship_pincode= r_pincode, ship_service_type=ship_service_type)
+
+        p_det.save()
+
+        return redirect('cust_det')
+
+def expend_(request):
+    c_data = cust_details.objects.all()
+    p_data = cust_pkg_details.objects.all()
+    return render(request, 'expend.html', { 'c_data' : c_data, 'p_data': p_data })

@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-
+########### EMPLOYEE DETAILS ###############
 class employee_Details(models.Model):
     eid_no = models.IntegerField(primary_key = True)
     e_name = models.CharField(max_length = 45)
@@ -15,6 +15,52 @@ class employee_Details(models.Model):
         return self.eid_no , self.e_userName , self.e_name
 
 
+########### CUSTOMER MODULE ################
+
+class cust_details(models.Model):
+    order_id = models.IntegerField(primary_key=True)
+    cust_name = models.CharField( max_length=50)
+    s_contact = models.CharField(max_length=10)
+    s_add = models.CharField(max_length=100)
+    s_city = models.CharField(max_length=30)
+    s_pincode = models.IntegerField()
+
+    r_name = models.CharField(max_length=45)
+    r_contact = models.CharField(max_length=10)
+    r_add = models.CharField(max_length=100)
+    r_city = models.CharField(max_length=30)
+    r_pincode = models.IntegerField()
+    
+
+class transc_Details(models.Model):
+    order_id = models.IntegerField(primary_key=True)
+    tr_id = models.IntegerField()
+    t_mode = models.CharField(max_length=20)
+    t_amt = models.IntegerField()
+    t_date = models.DateField()
+    t_time = models.TimeField()
+    t_status = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.order_id
+
+########### CARGO MANAGEMENT #############
+class cust_pkg_details(models.Model):
+    order_id = models.IntegerField(primary_key=True)
+    cust_name = models.CharField(max_length=45)
+    pkg_r_date = models.DateField()
+    pkg_r_time = models.TimeField()
+    pkg_d_date = models.DateField()
+    pkg_d_time = models.TimeField()
+    pkg_weight = models.IntegerField()
+    pkg_ship_add = models.TextField()
+    pkg_ship_city = models.CharField(max_length=45)
+    pkg_ship_pincode = models.IntegerField()
+    ship_service_type = models.CharField(max_length=45)
+
+    def __str__(self):
+        return self.order_id
+
 class consignDetails(models.Model):
     c_id = models.IntegerField(primary_key = True )
     c_desc = models.TextField()
@@ -27,14 +73,7 @@ class consignDetails(models.Model):
     def __str__(self):
         return [self.c_id,self.c_desc, self.c_quan ,self.c_price , self.c_to ,self.c_from ,self.c_date]
 
-class transcDetails(models.Model):
-    t_id = models.IntegerField(primary_key = True)
-    t_amt = models.IntegerField()
-    t_date = models.DateField()
-
-    def __str__(self):
-        return self.t_id
-
+############ BILLING ################
 class billDetails(models.Model):
     b_id = models.IntegerField(primary_key = True)
     b_desc = models.TextField()
@@ -44,6 +83,7 @@ class billDetails(models.Model):
     def __str__(self):
         return self.b_id , self.b_desc
 
+########### PERMISSION ###############
 class per_table(models.Model):
     per = models.IntegerField()
     Description = models.CharField(max_length=30)    

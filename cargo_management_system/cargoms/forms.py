@@ -2,8 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
-
+from cargoms.models import cust_details,cust_pkg_details
 
 class SignUpForm(UserCreationForm):
     full_name = forms.CharField(label='Full Name', max_length=100 , required=True)
@@ -12,10 +11,10 @@ class SignUpForm(UserCreationForm):
     email = forms.EmailField(label='E-mail', max_length=150, required=True)
     #permissions
     Customer = forms.BooleanField(label="Customer Details", help_text="Select for provide Access to Customer Details ", required=False)
-    Billing = forms.BooleanField(label="Billing Details", help_text="Select for provide Access to Billing Details ",required=False)
     Cargo = forms.BooleanField(label="Cargo Details", help_text="Select for provide Access to Cargo Details ", required=False)
     Transactions = forms.BooleanField(label="Transations Details", help_text="Select for provide Access to Transactions Details ", required=False)
     Time_of_Delivery = forms.BooleanField(label="Time of Delivery Details", help_text="Select for provide Access to Time of Delivery Details ", required=False) 
+    Billing = forms.BooleanField(label="Billing Details", help_text="Select for provide Access to Billing Details ",required=False)
     Enquiry = forms.BooleanField(label="Enquiry", help_text="Select for provide Access to Enquiry management ", required=False)
 
     contact = forms.CharField(label='Mobile Number', max_length=10, required=True)
@@ -54,7 +53,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'full_name', 'employee_Id', 'Customer', 'Billing', 'Cargo', 'Transactions', 'Time_of_Delivery', 'Enquiry','email', 'contact', 'address')
+        fields = ('username', 'full_name', 'employee_Id', 'Customer',  'Cargo','Transactions','Time_of_Delivery', 'Billing',   'Enquiry','email', 'contact', 'address')
 
 class SignInForm(AuthenticationForm):
     username = forms.CharField( label='Login ID', max_length=100)
@@ -62,3 +61,23 @@ class SignInForm(AuthenticationForm):
     class meta:
         model : User 
         feilds = ('username', 'password')          
+
+class sender_details_form(forms.ModelForm):
+    class Meta:
+        model = cust_details
+        fields = ('order_id', 'cust_name', 's_contact', 's_add', 's_city', 's_pincode')
+        labels = {"order_id" : "Order ID", 'cust_name' : 'Customer Name', 's_add' : 'Sender Address', 's_city' : 'Sender City', 's_pincode' : 'Sender Pincode', 's_contact': 'Sender Contact'}
+
+class receiver_details_form(forms.ModelForm):
+    class Meta:
+        model = cust_details
+        fields = {'r_name', 'r_contact', 'r_add', 'r_city', 'r_pincode' }
+        labels = {'r_name':'Reciever Name', 'r_contact': 'Reciever Contact', 'r_add': 'Reciever Address', 'r_city':'Reciever City', 'r_pincode':'Reciever Pincode' }
+
+class cust_pkg_form(forms.ModelForm):
+    class Meta:
+        model = cust_pkg_details
+        fields = {'pkg_r_date','pkg_r_time','pkg_d_date', 'pkg_d_time','pkg_weight','ship_service_type'
+        }
+        labels = {'pkg_r_date':'Package Recieving Date','pkg_r_time':'Package Receiving Time','pkg_d_date':'Package Delivery date', 'pkg_d_time':'package Delivery Time','pkg_weight':'Package Weight','ship_service_type':'Service Type'}
+        

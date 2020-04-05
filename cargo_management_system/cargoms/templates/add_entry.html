@@ -1,0 +1,31 @@
+
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content2 %}
+<div class="d-flex justify-content-end ">
+    <a href="{% url 'logout' %}" class="btn btn-primary" style="margin: 5px;">LOG OUT</a>
+</div>
+  
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'cust_save' %}" method="POST">
+    {% csrf_token %}
+    <div class="d-flex justify-content-start" style="border: 2px solid black; margin: 2%;">    
+    <div class="col-5" style="margin: 4%;">
+        {{ s_form | crispy }}
+    </div> 
+     <div class="col-5" style="margin: 4%;">
+        {{ r_form | crispy }}
+    </div>          
+    </div>
+<div>
+    <div class="col-5" id="pform" >
+        {{ p_form | crispy }}
+    </div> 
+</div>
+<button type="submit" class="btn btn-primary" > SUBMIT</button>
+</form>
+{% endblock %}    

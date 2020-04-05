@@ -1,0 +1,79 @@
+<head>
+  <style>
+    table{
+    border-collapse: collapse;
+    width: 75%;
+  }
+  th, td {
+    padding: 4px;
+    text-align: center;
+    border: 1px solid rgb(15, 2, 2);
+    
+  }
+  #t{
+    margin-left: 10%;
+  }
+  </style>
+</head>
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content2 %}
+<div class="d-flex justify-content-end ">
+  <a href="{% url 'logout' %}" class="btn btn-primary" style="margin: 5px;">LOG OUT</a>
+
+</div>
+{% endblock %}
+{% block content %}
+<div id="t">
+  <h4>SENDER DETAILS</h4>
+  <table >
+    {% for c_d in c_data %}
+    <tr >
+      <td><b>ORDER ID</b></td>
+    <td>{{c_d.order_id}}</td>
+    <td><b>CUSTOMER NAME</b></td>
+    <td>{{c_d.cust_name}}</td>
+  </tr>
+  <tr>
+    <td><b>CUSTOMER CONTACT</b></td>
+    <td>{{c_d.s_contact}}</td>
+  </tr>
+</table>  
+
+  <br><br>
+  
+  <table>
+    <h4> RECIEVER DETAILS</h4>
+  <tr>
+    <td><b>RECIEVER NAME</b></td>
+    <td>{{c_d.r_name}}</td>
+    <td><b>RECIEVER CONTACT</b></td>
+    <td>{{c_d.r_contact}}</td>
+  </tr>
+  <tr>
+    <td><b>RECIEVER CITY</b></td>
+    <td>{{c_d.r_city}}</td>
+  </tr>
+  </table>
+
+  <br><br>
+
+  <table>
+    <h4> PACKAGE DETAILS</h4>
+  <tr>
+    <td><b>RECIEVER NAME</b></td>
+    <td>{{c_d.r_name}}</td>
+    <td><b>RECIEVER CONTACT</b></td>
+    <td>{{c_d.r_contact}}</td>
+  </tr>
+  <tr>
+    <td><b>RECIEVER CITY</b></td>
+    <td>{{c_d.r_city}}</td>
+  </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

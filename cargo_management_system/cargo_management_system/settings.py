@@ -85,14 +85,25 @@ WSGI_APPLICATION = 'cargo_management_system.wsgi.application'
 }
 """
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'read_default_file': '/etc/mysql/my.cnf',
         },
     }
+}"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'cargoms_db',
+        'USER': 'gurdayal-s',
+        'PASSWORD': 'Xmen@7707',
+
+    }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

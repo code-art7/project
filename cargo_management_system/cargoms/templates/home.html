@@ -1,6 +1,19 @@
+<head>
+  <style>
+    table{
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid rgb(15, 2, 2);
+  }
+  </style>
+</head>
+
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 <div class="ad ">
     <h3 style="color: rgb(1, 3, 32);" ><B> </B></h3>
@@ -15,32 +28,32 @@
        {% if i == a.per %}
           <br>
        {% if a.Description == 'Customer Details' %}
-       <a href="{% url 'cust_det' %}"> * {{ a.Description }} </a>
+       <a href="{% url 'cust_det' %}" class="btn btn-primary "> * {{ a.Description }} </a>
        <br>  
        {% endif %}
 
        {% if a.Description == 'Cargo Details' %}
-       <a href="{% url 'cargo_det' %}"> * {{ a.Description }} </a>
+       <a href="{% url 'cargo_det' %}" class="btn btn-primary" > * {{ a.Description }} </a>
        <br>
        {% endif %}
 
        {% if a.Description == 'Transaction Details' %}
-       <a href="{% url 'trans_det' %}"> * {{ a.Description }} </a>
+       <a href="{% url 'trans_det' %}" class="btn btn-primary"> * {{ a.Description }} </a>
        <br>
        {% endif %}
 
        {% if a.Description == 'Time of Delivery Manegement' %}
-       <a href="{% url 't_o_d' %}"> * {{ a.Description }} </a>
+       <a href="{% url 't_o_d' %}" class="btn btn-primary" > * {{ a.Description }} </a>
        <br>
        {% endif %}
 
        {% if a.Description == 'Billing management' %}
-       <a href="{% url 'bill_det' %}"> * {{ a.Description }} </a>
+       <a href="{% url 'bill_det' %}" class="btn btn-primary" > * {{ a.Description }} </a>
        <br>
        {% endif %}
 
        {% if a.Description == 'Enquiry' %}
-       <a href="{% url 'enquiry_' %}"> * {{ a.Description }} </a>
+       <a href="{% url 'enquiry_' %}" class="btn btn-primary" > * {{ a.Description }} </a>
        <br>
        {% endif %}
 
