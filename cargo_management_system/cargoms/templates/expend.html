@@ -3,6 +3,7 @@
     table{
     border-collapse: collapse;
     width: 75%;
+    table-layout: fixed;
   }
   th, td {
     padding: 4px;
@@ -25,20 +26,31 @@
 
 </div>
 {% endblock %}
+
 {% block content %}
+
 <div id="t">
-  <h4>SENDER DETAILS</h4>
+  {% for c_dd in c_data %}
+  {% if c_dd.order_id == a %}
   <table >
-    {% for c_d in c_data %}
+    <h4>SENDER DETAILS</h4>
     <tr >
       <td><b>ORDER ID</b></td>
-    <td>{{c_d.order_id}}</td>
+    <td>{{c_dd.order_id}}</td>
     <td><b>CUSTOMER NAME</b></td>
-    <td>{{c_d.cust_name}}</td>
+    <td>{{c_dd.cust_name}}</td>
   </tr>
   <tr>
-    <td><b>CUSTOMER CONTACT</b></td>
-    <td>{{c_d.s_contact}}</td>
+    <td><b>SENDER CONTACT</b></td>
+    <td>{{c_dd.s_contact}}</td>
+    <td><b>SENDER ADDRESS</b></td>
+    <td>{{c_dd.s_add}}</td>
+  </tr>
+  <tr>
+    <td><b>SENDER CITY</b></td>
+    <td>{{c_dd.s_city}}</td>
+    <td><b>SENDER PINCODE</b></td>
+    <td>{{c_dd.s_pincode}}</td>
   </tr>
 </table>  
 
@@ -48,32 +60,51 @@
     <h4> RECIEVER DETAILS</h4>
   <tr>
     <td><b>RECIEVER NAME</b></td>
-    <td>{{c_d.r_name}}</td>
+    <td>{{c_dd.r_name}}</td>
     <td><b>RECIEVER CONTACT</b></td>
-    <td>{{c_d.r_contact}}</td>
+    <td>{{c_dd.r_contact}}</td>
   </tr>
   <tr>
+    <td><b>RECIEVER ADDRESS</b></td>
+    <td>{{c_dd.r_add}}</td>
     <td><b>RECIEVER CITY</b></td>
-    <td>{{c_d.r_city}}</td>
+    <td>{{c_dd.r_city}}</td>
+  </tr>
+  <tr>
+    <td><b>RECIEVER PINCODE</b></td>
+    <td>{{c_dd.r_pincode}}</td>
   </tr>
   </table>
 
   <br><br>
+  {% endif %}
+  {% endfor %}
+
+  {% for p_dd in p_data %}
+  {% if p_dd.order_id == a %}
 
   <table>
     <h4> PACKAGE DETAILS</h4>
   <tr>
-    <td><b>RECIEVER NAME</b></td>
-    <td>{{c_d.r_name}}</td>
-    <td><b>RECIEVER CONTACT</b></td>
-    <td>{{c_d.r_contact}}</td>
+    <td><b>WEIGHT</b></td>
+    <td>{{p_dd.pkg_weight}}</td>
+    <td><b>SERVICE TYPE</b></td>
+    <td>{{p_dd.ship_service_type}}</td>
   </tr>
   <tr>
-    <td><b>RECIEVER CITY</b></td>
-    <td>{{c_d.r_city}}</td>
+    <td><b>RECIEVING DATA</b></td>
+    <td>{{p_dd.pkg_r_date}}</td>
+    <td><b>RECIEVING TIME</b></td>
+    <td>{{p_dd.pkg_r_time}}</td>
   </tr>
-    {% endfor %}
+  <tr>
+    <td><b>DELIVERY DATE</b></td>
+    <td>{{p_dd.pkg_d_date}}</td>
+    <td><b>DELIVERY TIME</b></td>
+    <td>{{p_dd.pkg_d_time}}</td>
+  </tr>
   </table>
 </div>
-
+{% endif %}
+{% endfor %}
 {% endblock %}

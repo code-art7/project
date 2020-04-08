@@ -184,4 +184,14 @@ def cust_save(request):
 def expend_(request):
     c_data = cust_details.objects.all()
     p_data = cust_pkg_details.objects.all()
-    return render(request, 'expend.html', { 'c_data' : c_data, 'p_data': p_data })
+    v = request.POST['v']
+    list = v 
+    s = [str(i) for i in list] 
+    res = int("".join(s)) 
+
+    a = res
+    print(a)
+    return render(request, 'expend.html', { 'a' : a, 'c_data':c_data, 'p_data':p_data })
+            
+            
+            

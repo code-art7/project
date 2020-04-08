@@ -14,20 +14,6 @@
 
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-<style>
-  table {
-    
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid rgb(15, 2, 2);
-  }
-
-</style>
 
 {% block content2 %}
 <div class="d-flex justify-content-end ">
@@ -46,6 +32,7 @@
     <td><b>RECIEVER NAME</b></td>
     <td><b>RECIEVER CONTACT</b></td>
     <td><b>RECIEVER CITY</b></td>
+    <td></td>
     {% for c_d in c_data %}
   </tr>
     <td>{{c_d.order_id}}</td>
@@ -54,8 +41,14 @@
     <td>{{c_d.r_name}}</td>
     <td>{{c_d.r_contact}}</td>
     <td>{{c_d.r_city}}</td>
-    <td><a href="{% url 'expend' %}" class="btn btn-primary ">EXPEND</a></td>
+    <td>
+    <form method="POST" action="{% url 'expend' %}" >
+      {% csrf_token %}
+      <input type="number" value="{{c_d.order_id}}" name="v">
+      <button class="btn btn-primary">EXPEND</button></td>
+    </form>
     {% endfor %}
 </table>  
 
 {% endblock %}
+
