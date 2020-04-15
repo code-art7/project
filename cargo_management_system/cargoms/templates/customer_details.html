@@ -32,6 +32,7 @@
     <td><b>RECIEVER NAME</b></td>
     <td><b>RECIEVER CONTACT</b></td>
     <td><b>RECIEVER CITY</b></td>
+    <td><b>RECIEVER STATE</b></td>
     <td></td>
     {% for c_d in c_data %}
   </tr>
@@ -41,6 +42,7 @@
     <td>{{c_d.r_name}}</td>
     <td>{{c_d.r_contact}}</td>
     <td>{{c_d.r_city}}</td>
+    <td>{{c_d.r_state}}</td>
     <td>
     <form method="POST" action="{% url 'expend' %}" >
       {% csrf_token %}

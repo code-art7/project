@@ -73,6 +73,8 @@
   <tr>
     <td><b>RECIEVER PINCODE</b></td>
     <td>{{c_dd.r_pincode}}</td>
+    <td><b>RECIEVER STATE</b></td>
+    <td>{{c_dd.r_state}}</td>
   </tr>
   </table>
 
@@ -92,18 +94,31 @@
     <td>{{p_dd.ship_service_type}}</td>
   </tr>
   <tr>
-    <td><b>RECIEVING DATA</b></td>
+    <td><b>RECIEVING DATE</b></td>
     <td>{{p_dd.pkg_r_date}}</td>
     <td><b>RECIEVING TIME</b></td>
     <td>{{p_dd.pkg_r_time}}</td>
   </tr>
+</table>
+{% endif %}
+{% endfor %}
+<br><br>
+{% for t_d in t_data %}
+{% if t_d.order_id == a %}
+
+<table>
+  <h4> TRANSACTION DETAILS</h4>
   <tr>
-    <td><b>DELIVERY DATE</b></td>
-    <td>{{p_dd.pkg_d_date}}</td>
-    <td><b>DELIVERY TIME</b></td>
-    <td>{{p_dd.pkg_d_time}}</td>
+    <td><b>TRANSACTION AMOUNT</b></td>
+    <td>{{t_d.t_amt}}</td>
+    <td><b>TRANSACTION DATE</b></td>
+    <td>{{t_d.t_date}}</td>
   </tr>
-  </table>
+  <tr>
+    <td><b>TRANSACTION TIME</b></td>
+    <td>{{t_d.t_time}}</td>
+  </tr>
+</table>
 </div>
 {% endif %}
 {% endfor %}

@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'cargo_management_system.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'cargoms_db',
+        'NAME': 'cargoms_dbase',
         'USER': 'gurdayal-s',
         'PASSWORD': 'Xmen@7707',
 
@@ -129,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

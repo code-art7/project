@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from cargoms.models import cust_details,cust_pkg_details
+from cargoms.models import cust_details,cust_pkg_details, transc_Details
+
 
 class SignUpForm(UserCreationForm):
     full_name = forms.CharField(label='Full Name', max_length=100 , required=True)
@@ -60,24 +61,43 @@ class SignInForm(AuthenticationForm):
 
     class meta:
         model : User 
-        feilds = ('username', 'password')          
+        feilds = ('username', 'password') 
+
+state_choices = (("Andhra Pradesh","Andhra Pradesh"),("Arunachal Pradesh ","Arunachal Pradesh "),("Assam","Assam"),("Bihar","Bihar"),("Chhattisgarh","Chhattisgarh"),("Goa","Goa"),("Gujarat","Gujarat"),("Haryana","Haryana"),("Himachal Pradesh","Himachal Pradesh"),("Jammu and Kashmir ","Jammu and Kashmir "),("Jharkhand","Jharkhand"),("Karnataka","Karnataka"),("Kerala","Kerala"),("Madhya Pradesh","Madhya Pradesh"),("Maharashtra","Maharashtra"),("Manipur","Manipur"),("Meghalaya","Meghalaya"),("Mizoram","Mizoram"),("Nagaland","Nagaland"),("Odisha","Odisha"),("Punjab","Punjab"),("Rajasthan","Rajasthan"),("Sikkim","Sikkim"),("Tamil Nadu","Tamil Nadu"),("Telangana","Telangana"),("Tripura","Tripura"),("Uttar Pradesh","Uttar Pradesh"),("Uttarakhand","Uttarakhand"),("West Bengal","West Bengal"),("Andaman and Nicobar Islands","Andaman and Nicobar Islands"),("Chandigarh","Chandigarh"),("Dadra and Nagar Haveli","Dadra and Nagar Haveli"),("Daman and Diu","Daman and Diu"),("Lakshadweep","Lakshadweep"),("National Capital Territory of Delhi","National Capital Territory of Delhi"),("Puducherry","Puducherry"))
 
 class sender_details_form(forms.ModelForm):
+    r_state = forms.ChoiceField(label="Reciever State", choices=state_choices)
+
     class Meta:
         model = cust_details
-        fields = ('order_id', 'cust_name', 's_contact', 's_add', 's_city', 's_pincode')
-        labels = {"order_id" : "Order ID", 'cust_name' : 'Customer Name', 's_add' : 'Sender Address', 's_city' : 'Sender City', 's_pincode' : 'Sender Pincode', 's_contact': 'Sender Contact'}
+        fields = ('order_id', 'cust_name', 's_contact', 's_add', 's_city', 's_state', 's_pincode')
+        labels = {"order_id" : "Order ID", 'cust_name' : 'Customer Name', 's_add' : 'Sender Address', 's_city' : 'Sender City', 's_state':'Sender State',  's_pincode' : 'Sender Pincode', 's_contact': 'Sender Contact'}
 
 class receiver_details_form(forms.ModelForm):
+    r_state = forms.ChoiceField(label="Reciever State", choices=state_choices)
     class Meta:
         model = cust_details
-        fields = {'r_name', 'r_contact', 'r_add', 'r_city', 'r_pincode' }
-        labels = {'r_name':'Reciever Name', 'r_contact': 'Reciever Contact', 'r_add': 'Reciever Address', 'r_city':'Reciever City', 'r_pincode':'Reciever Pincode' }
+        fields = {'r_name', 'r_contact', 'r_add', 'r_city', 'r_state', 'r_pincode' }
+        labels = {'r_name':'Reciever Name', 'r_contact': 'Reciever Contact', 'r_add': 'Reciever Address', 'r_city':'Reciever City', 'r_state':'Reciever State', 'r_pincode':'Reciever Pincode' }
+
+d_type = (
+    ("Normal","Normal"),
+    ("Express", "Express"),
+    ("Fragile", "Fragile"),
+)
+
+
 
 class cust_pkg_form(forms.ModelForm):
+    ship_service_type = forms.ChoiceField(label="Service Type", choices=d_type)
     class Meta:
         model = cust_pkg_details
         fields = {'pkg_r_date','pkg_r_time','pkg_d_date', 'pkg_d_time','pkg_weight','ship_service_type'
         }
         labels = {'pkg_r_date':'Package Recieving Date','pkg_r_time':'Package Receiving Time','pkg_d_date':'Package Delivery date', 'pkg_d_time':'package Delivery Time','pkg_weight':'Package Weight','ship_service_type':'Service Type'}
         
+class tr_form(forms.ModelForm):
+    class Meta:
+        model = transc_Details
+        fields = {'t_amt', 't_date', 't_time'}
+        labels = {'t_amt':'Amount','t_date':'Transaction Date', 't_time':'Transaction Time'}
