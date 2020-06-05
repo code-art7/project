@@ -76,11 +76,16 @@ class consignDetails(models.Model):
         return [self.c_id ]
     
 class consign_pkg(models.Model):
-    c_id = models.CharField(primary_key = True, max_length=20 )
-    s_no = models.IntegerField()
+    p_id = models.IntegerField(primary_key=True)
+    c_id = models.CharField(max_length=20 )
     order_id = models.IntegerField()
     pkg_r_date = models.DateField()
     d_sh_date = models.DateField()
+    pkg_weight = models.IntegerField()
+    cust_name = models.CharField( max_length=50)
+    r_city = models.CharField(max_length=30)
+    r_state = models.CharField(max_length=30)
+
 
     def __str__(self):
         return [self.c_id ]
@@ -95,4 +100,17 @@ class t_o_delivery(models.Model):
 
     def __str__(self):
         return [self.c_id ]
+
+class state_code(models.Model):
+    state = models.CharField(max_length=30)
+    state_code = models.CharField(max_length=5)
+
+class temp_pkg_model(models.Model):
+    order_id = models.IntegerField(primary_key=True)
+    cust_name = models.CharField( max_length=50)
+    r_city = models.CharField(max_length=30)
+    r_state = models.CharField(max_length=30)
+    pkg_r_date = models.DateField()
+    pkg_weight = models.IntegerField()
+
 

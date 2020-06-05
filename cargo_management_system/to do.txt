@@ -96,3 +96,108 @@ class Migration(migrations.Migration):
             ],
         ),
     ]
+
+
+########### sort data ###########
+l_order_id = []
+    l_state = []
+    for p_d in p_data:
+        x = p_d.order_id
+        y = p_d.r_state
+        l_order_id.append(x)
+        l_state.append(y)
+
+    sort_no =[]
+
+    n = 0
+    for i in cp_data:
+        if i.pkg_r_date == today:
+            n = i.s_no+1
+        else:
+            n = 1
+
+    for i in range(len(l_state)):
+        sort_no.append(n)
+        x = 0
+        for j in range(i):
+            if(l_state[i]== l_state[j] and (i!=j)):
+                sort_no[i] =sort_no[j]
+                if x!=1:
+                    n = n-1
+                    x = x+1
+        n= n+1
+
+    consign_id = []
+
+    list = ['C','P',a,b,c,sort_no] 
+    s = [str(i) for i in list] 
+    res = "".join(s)
+    consign_id.append(res)
+
+    for i in range(len(l_order_id)):
+        c_i = consign_id[i]
+        o_i = l_order_id[i]
+        for c_d in c_data:
+            if c_d.order_id == o_i:
+                d = c_d.pkg_r_date
+        
+        s_no_ = 1
+        cp = consign_pkg(c_id=c_i,order_id=o_i,pkg_r_date=d,d_sh_date=tommorow,s_no=s_no_)
+        
+        cp.save()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO `cargoms_state_code`(`state_code`, `state`) VALUES
+('AN', 'ANDAMAN AND NICOBAR ISLANDS'),
+('AP', 'ANDHRA PRADESH'),
+('AR', 'ARUNACHAL PRADESH'),
+('AS', 'ASSAM'),
+('BR', 'BIHAR'),
+('CG', 'CHATTISGARH'),
+('CH', 'CHANDIGARH'),
+('DD', 'DAMAN AND DIU'),
+('DL', 'DELHI'),
+('DN', 'DADRA AND NAGAR HAVELI'),
+('GA', 'GOA'),
+('GJ', 'GUJARAT'),
+('HP', 'HIMACHAL PRADESH'),
+('HR', 'HARYANA'),
+('JK', 'JAMMU AND KASHMIR'),
+('JH', 'JHARKHAND'),
+('KL', 'KERALA'),
+('KA', 'KARNATAKA'),
+('LD', 'LAKSHADWEEP'),
+('ML', 'MEGHALAYA'),
+('MH', 'MAHARASHTRA'),
+('MN', 'MANIPUR'),
+('MP', 'MADHYA PRADESH'),
+('MZ', 'MIZORAM'),
+('NL', 'NAGALAND'),
+('OD', 'ORISSA'),
+('PB', 'PUNJAB'),
+('PY', 'PONDICHERRY'),
+('RJ', 'RAJASTHAN'),
+('SK', 'SIKKIM'),
+('TN', 'TAMIL NADU'),
+('TR', 'TRIPURA'),
+('UK', 'UTTARAKHAND'),
+('UP', 'UTTAR PRADESH'),
+('WB', 'WEST BENGAL'),
+('TS', 'TELANGANA');

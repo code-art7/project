@@ -4,19 +4,19 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import SignUpForm, SignInForm
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
-from .models import employee_Details, per_table, cust_details, cust_pkg_details,transc_Details,consign_pkg,consign_pkg
+from .models import employee_Details, per_table, cust_details, cust_pkg_details,transc_Details,consign_pkg, state_code, temp_pkg_model,t_o_delivery,consignDetails
 from cargoms.forms import sender_details_form,receiver_details_form,cust_pkg_form,tr_form
 from datetime import date, time
+from django.db.models import Count
 import datetime
-import pandas as pd
 import mysql.connector
 import array as arr
-
 
 def home(request):
     det = employee_Details.objects.all()
     per_data = per_table.objects.all()
     user = User
+    
     if request.user.is_authenticated:
         for a in det:
             if a.e_userName == request.user.username:
@@ -38,7 +38,6 @@ def home(request):
         return redirect('login')
 
 def login_v(request):
-
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -131,84 +130,19 @@ def logout_v(request):
 def cust_det(request):
     c_data = cust_details.objects.all()
     p_data = cust_pkg_details.objects.all()
-    return render(request, 'customer_details.html', { 'c_data' : c_data, 'p_data': p_data })     
+    return render(request, 'customer_details.html', { 'c_data' : c_data, 'p_data': p_data })    
 
-def cargo_det(request):
-    c_pkg = consign_pkg.objects.all()
-    return render(request, 'cargo_details2.html', { 'c_pkg' : c_pkg })
+def expend_(request):
+    c_data = cust_details.objects.all()
+    p_data = cust_pkg_details.objects.all()
+    t_data = transc_Details.objects.all()
+    v = request.POST['v']
+    list = v 
+    s = [str(i) for i in list] 
+    res = int("".join(s)) 
 
-def trans_det(request):
-    return render(render, 'transaction_details.html')
-
-def bill_det(request):
-    return render(request, 'billing_management.html')
-
-def t_o_d(request):
-    return render(request, 'time_of_delivery.html')
-
-def enquiry_(request):
-    return render(request, 'enquiry.html')
-
-def sort_data(request):
-    p_data = cust_details.objects.all()
-    c_data = cust_pkg_details.objects.all()
-    cp_data = consign_pkg.objects.all()
-
-    today = date.today()
-    tommorow = date.today() + datetime.timedelta(days=1)
-    x = datetime.datetime.now()
-    today = date.today()
-    a = x.year
-    b = x.month
-    c = x.day
-
-    l_order_id = []
-    l_state = []
-    for p_d in p_data:
-        x = p_d.order_id
-        y = p_d.r_state
-        l_order_id.append(x)
-        l_state.append(y)
-
-    sort_no =[]
-
-    n = 0
-    for i in cp_data:
-        if i.pkg_r_date == today:
-            n = i.s_no+1
-        else:
-            n = 1
-
-    for i in range(len(l_state)):
-        sort_no.append(n)
-        x = 0
-        for j in range(i):
-            if(l_state[i]== l_state[j] and (i!=j)):
-                sort_no[i] =sort_no[j]
-                if x!=1:
-                    n = n-1
-                    x = x+1
-        n= n+1
-
-    consign_id = []
-    for p_d in p_data:
-        list = ['C','P',a,b,c,sort_no] 
-        s = [str(i) for i in list] 
-        res = "".join(s)
-        consign_id.append(res)
-
-    for i in range(len(l_order_id)):
-        c_i = consign_id[i]
-        o_i = l_order_id[i]
-        for c_d in c_data:
-            if c_d.order_id == o_i:
-                d = c_d.pkg_r_date
-        
-        cp = consign_pkg(c_id=c_i,order_id=o_i,pkg_r_date=d,d_sh_date=tommorow,s_no=s_no)
-        
-        cp.save()
-
-    return redirect('cargo_det')
+    a = res
+    return render(request, 'expend.html', { 'a' : a, 'c_data':c_data, 'p_data':p_data, 't_data': t_data })
 
 def add_entry(request):
     x = datetime.datetime.now()
@@ -216,7 +150,7 @@ def add_entry(request):
     a = x.year
     b = x.month
     c = x.day
-    d = 0
+    d = 1
     c_data = cust_pkg_details.objects.all()
 
     for i in c_data:
@@ -228,13 +162,14 @@ def add_entry(request):
     list = [a,b,c,d] 
     s = [str(i) for i in list] 
     res = int("".join(s))
-
+    print(res)
+    print("<----")
     print(today)
     h = 'Haryana'
     t_ime = datetime.datetime.now().time()
-    s_form = sender_details_form(initial={'order_id': res,'r_state': h })
-    r_form = receiver_details_form(initial={'r_state': h})
-    p_form = cust_pkg_form(initial={'pkg_r_date' : today, 'pkg_r_time' : t_ime })
+    s_form = sender_details_form(initial={'order_id': res,'s_state': h, 's_contact': 1111111111, 's_add': 'abc', 's_city': 'Faridabad'  })
+    r_form = receiver_details_form(initial={'r_state': h, 'r_contact': 2222222222 , 'r_add': 'xyz' })
+    p_form = cust_pkg_form(initial={'pkg_r_date' : today, 'pkg_r_time' : t_ime, 'pkg_d_date' : today, 'pkg_d_time' : t_ime })
     t_form = tr_form(initial={'t_date' : today, 't_time' : t_ime })
 
     return render(request, 'add_entry.html', { 's_form' : s_form, 'r_form': r_form, 'p_form': p_form, 't_form': t_form })
@@ -248,7 +183,7 @@ def cust_save(request):
         s_city = request.POST['s_city']
         s_state = request.POST['s_state']
         s_pincode = request.POST['s_pincode']
-
+  
         r_name = request.POST['r_name']
         r_contact = request.POST['r_contact']
         r_add = request.POST['r_add']
@@ -272,7 +207,7 @@ def cust_save(request):
         c_det.save()
 
         today = date.today()
-        d=0
+        d=1
         p_data = cust_pkg_details.objects.all()
         for i in p_data:
             if i.pkg_r_date == today:
@@ -281,24 +216,95 @@ def cust_save(request):
                 d = 1
 
         p_det = cust_pkg_details(order_id=order_id, cust_name=cust_name, pkg_r_date=pkg_r_date, pkg_r_time=pkg_r_time, pkg_d_date=pkg_d_date,pkg_d_time=pkg_d_time, pkg_weight=pkg_weight, pkg_ship_add=r_add, pkg_ship_city=r_city, pkg_ship_pincode= r_pincode, ship_service_type=ship_service_type,s_i_no = d)
-
+        #Customer details
         p_det.save()
 
         t_det = transc_Details(order_id=order_id, cust_name=cust_name, t_amt = t_amt, t_date=t_date, t_time=t_time)
-
+        #package Details
         t_det.save()
+
+        temp_p_model = temp_pkg_model(order_id=order_id, cust_name=cust_name, r_state=r_state, r_city=r_city, pkg_r_date=pkg_r_date,pkg_weight=pkg_weight)
+        # save to temp model
+        temp_p_model.save()
+
         return redirect('cust_det')
 
-def expend_(request):
-    c_data = cust_details.objects.all()
-    p_data = cust_pkg_details.objects.all()
-    t_data = transc_Details.objects.all()
-    v = request.POST['v']
-    list = v 
-    s = [str(i) for i in list] 
-    res = int("".join(s)) 
+def cargo_det(request):
+    c_pkg = consign_pkg.objects.all()
+    return render(request, 'cargo_details2.html', { 'c_pkg' : c_pkg })
 
-    a = res
-    return render(request, 'expend.html', { 'a' : a, 'c_data':c_data, 'p_data':p_data, 't_data': t_data })
-            
-            
+
+def sort_data(request):
+    t_data = temp_pkg_model.objects.all()
+    state_data = state_code.objects.all()
+
+    today = date.today()
+    tommorow = date.today() + datetime.timedelta(days=1)
+    x = datetime.datetime.now()
+    today = date.today()
+    a = x.year
+    b = x.month
+    c = x.day
+
+    s_c = None
+    #n = None
+    for t_d in t_data:
+        for j in state_data:    
+            if (t_d.r_state.lower() == j.state.lower()):
+                s_c = j.state_code
+                print(s_c)
+
+        list = ['C','P',s_c, a,b,c] 
+        s = [str(i) for i in list] 
+        res = "".join(s)
+        
+        cp = consign_pkg(c_id=res,order_id=t_d.order_id,pkg_r_date=t_d.pkg_r_date,d_sh_date=tommorow,p_id=t_d.order_id)
+        
+        cp.save()
+    
+    #t_data.delete()
+
+    return redirect('cargo_det')
+
+def consign_Details_save(request):
+    today = date.today()
+    c_d = consign_pkg.objects.all().filter(pkg_r_date=today)
+
+    l = []
+    
+    for i in c_d:
+        l.append(i.c_id)
+    
+    for c in [ele for ind, ele in enumerate(l,1) if ele not in l[ind:]]:
+        count = 0
+        for ele in l:
+            if c == ele:
+                count += 1
+        print("{} {}".format(c,count))
+        count = 0
+     
+    return redirect('cargo_det')
+
+def trans_det(request):
+    return render(render, 'transaction_details.html')
+
+def bill_det(request):
+    return render(request, 'billing_management.html')
+
+def t_o_d(request):
+    return render(request, 'time_of_delivery.html')
+
+def enquiry_(request):
+    a = cust_details.objects.all()
+    b = cust_pkg_details.objects.all()
+    c = transc_Details.objects.all()
+    d = temp_pkg_model.objects.all()
+    e = consign_pkg.objects.all()
+
+    a.delete()
+    b.delete()
+    c.delete()
+    d.delete()
+    e.delete()
+
+    return render(request, 'enquiry.html')

@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^add_entry/', views.add_entry, name="add_entry"),
     url(r'^cust_save',views.cust_save, name="cust_save"),
     url(r'^expend/', views.expend_ , name="expend"),
-    url(r'^sort_data', views.sort_data, name="sort_data")
+    url(r'^sort_data', views.sort_data, name="sort_data"),
+    url(r'^consign_details', views.consign_Details_save, name="c_d_s")
 
 ]
