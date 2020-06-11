@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from cargoms.models import cust_details,cust_pkg_details, transc_Details
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column
 
 
 class SignUpForm(UserCreationForm):
@@ -84,18 +86,19 @@ d_type = (
     ("Fragile", "Fragile"),
 )
 
-
-
 class cust_pkg_form(forms.ModelForm):
     ship_service_type = forms.ChoiceField(label="Service Type", choices=d_type)
     class Meta:
         model = cust_pkg_details
-        fields = {'pkg_r_date','pkg_r_time','pkg_d_date', 'pkg_d_time','pkg_weight','ship_service_type'
+        fields = {'pkg_r_date','pkg_r_time','pkg_d_date', 'pkg_d_time','quantity','pkg_weight','pkg_rate_p_piece','ship_service_type'
         }
-        labels = {'pkg_r_date':'Package Recieving Date','pkg_r_time':'Package Receiving Time','pkg_d_date':'Package Delivery date', 'pkg_d_time':'package Delivery Time','pkg_weight':'Package Weight','ship_service_type':'Service Type'}
+        labels = {'pkg_r_date':'Package Recieving Date','pkg_r_time':'Package Receiving Time','pkg_d_date':'Package Delivery date', 'pkg_d_time':'package Delivery Time','pkg_rate_p_piece':'Rate Per Piece','quantity':'Quantity','pkg_weight':'Package Weight','ship_service_type':'Service Type'}
         
 class tr_form(forms.ModelForm):
     class Meta:
         model = transc_Details
         fields = {'t_amt', 't_date', 't_time'}
         labels = {'t_amt':'Amount','t_date':'Transaction Date', 't_time':'Transaction Time'}
+
+#'pkg_quantity':'Package Quantity', 'pkg_rate_p_piece':'Rate per Piece'
+#'pkg_quantity', 'pkg_rate_p_piece',

@@ -1,0 +1,66 @@
+.cms{
+    color: brown;
+    margin-top: 5%;    
+}
+
+.alog{
+    color: rgb(241, 74, 32);
+    margin-top: 1%;
+}
+
+.b{
+    background-color: rgb(15, 20, 95);
+}
+
+.col-6{
+    color: rgb(1, 6, 10);
+    font-size: 17px;
+    font-weight: lighter;
+    margin-left: 4%;
+    margin-right: 4%;
+
+    height: 35%; 
+    font-family: Montserrat, sans-serif;
+    letter-spacing: 2px;
+}
+
+.header{
+    font-family: Montserrat, sans-serif;
+    color: #d5d5d5 !important;
+    margin-bottom: 0;
+    background-color: #2d2d30;
+    border: 0;
+    font-size: 33px !important;
+    letter-spacing: 4px;
+    opacity: 0.9;
+    padding: 1%;   
+}
+.head_logo{
+    margin: 1.5%;
+}
+.logout{
+    font-size: 25px;
+}
+
+.ad{
+    font-family: Montserrat, sans-serif;
+    letter-spacing: 2px;
+
+    margin-left: 5%;
+}
+.status{
+    padding: 4% 8%;
+    font-size: 30px;
+    color: #2d2d30;
+}
+
+.wel{
+    text-decoration: solid;
+    font-size: 30px;
+}
+
+#pform{
+    border: 2px solid black;
+    margin: 2%;
+    
+}

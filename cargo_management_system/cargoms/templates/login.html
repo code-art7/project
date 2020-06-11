@@ -10,11 +10,12 @@
 {% endfor %}
 {% endif %}
 <div class="ad ">
-  <h3 style="color: rgb(1, 3, 32);" ><B> ADMINSTRATION LOGIN</B></h3>
 </div>
 <form method="POST" action="/login/" class="d-flex justify-content-start" >
-      {% csrf_token %}
-      <div class="col-6" >
+      {% csrf_token %} 
+      
+      <div class="col-4" class="sin" >
+  <h3 style="color: rgb(5, 5, 5);" ><B> ADMINSTRATION LOGIN</B></h3>
           <br>
       {{ signinform | crispy }}
       <button type="submit" class="btn btn-primary" >SignIn</button>
@@ -22,7 +23,7 @@
     <br>
    
     <div class="status" align="center">
-      LOGIN TO SEE TODAY'S STATUS
+      CARGO MANAGEMENT SYSTEM
     </form>
 </div>
 {% endblock %}    

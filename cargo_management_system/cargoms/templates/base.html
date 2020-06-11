@@ -6,41 +6,43 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         {% load static %}
-        <link href="{% static 'css/main2.css' %}" rel="stylesheet" type="text/css"></link>
+        <link href="{% static 'css/main1.css' %}" rel="stylesheet" type="text/css"></link>
         <link href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"></link>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"></script>
 
     </head>
-
-    <body class="b">
+    
+    <body class="body">
         {% load crispy_forms_tags %}
-        
-        <div class="header" >
-            <div>
-                CARGO MANAGEMENT SYSTEM
-                {% for det in details %}
+        <div class="header">
+               <a href="#logo" class="logo"> CARGOMS</a>
+                 {% for det in details %}
                 {% if user.is_authenticated %}
                 {% if request.user.username == det.e_userName %}
-                <form class="logout" action="/logout/" style="float: right;">
-                    {{ det.e_name | title }}  |  
-                    <button type="submit" class="btn btn-primary" >LOGOUT</button>
-                </form>
+                    <div class="header-right">
+                        {% if det.e_per_id == '111111' %}
+                        <a href="{% url 'registerUser' %}"> REGISTER USER</a>
+                        {% endif %}
+                        <a href="{% url 'home' %}" > HOME</a>
+                        <a href="{% url 'logout' %}" >LOGOUT</a>
+                    </div>
                 {% endif %}
                 {% endif %}
                 {% endfor %}
-            </div>
         </div >
-
-        {% block content2 %}
-        {% endblock %}
-
         <br>
-        {% block content %}
-        {% endblock %}
-
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
         <br>
-        {% block content3 %}
-        {% endblock %}
+        <br>
+        <div>
+            {% block content1 %}
+            {% endblock %}
+        </div>
+            {% block content2 %}
+            {% endblock %}
     </body>
 </html>

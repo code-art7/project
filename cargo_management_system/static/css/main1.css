@@ -1,0 +1,147 @@
+/* Base.html */
+.body{
+    background-image: linear-gradient(to right, rgb(244, 247, 236), rgb(247, 241, 229));
+}
+
+.header {
+    overflow: hidden;
+    background-color: #e4dcdc;
+    padding: 20px 10px;
+  }
+
+.header a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;
+  }
+
+.logout{
+    font-size: 25px;
+}
+
+.header-right {
+    float: right;
+  }
+
+.header a:hover 
+{
+    background-color: rgb(168, 153, 153);
+    text-decoration: none;
+    color: black;
+  }
+
+  .header a.logo {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+/* Home.html */
+.wel{
+    text-decoration: solid;
+    font-size: 35px;
+    color: rgb(3, 3, 3);
+}
+table{
+    text-align: center;
+}
+
+/* customerdetails */
+
+.cust{
+    float: left;
+    color: rgb(8, 8, 8); 
+    font-size: 25px;
+}
+.btn1 a{
+    float: right;
+    margin-right: 2%;
+}
+/* cargo-bill */
+ .invoice-header{
+    display: flex;
+} 
+.sender-details{
+    text-align: justify;
+    float: left;
+    width: 50%;
+}
+.info-1{
+    text-align: justify;
+    float: right;
+    width: 25%;
+}
+
+.text1{
+    font-size: 20px;
+}
+
+/* bill */
+
+/* ------------------------------------------- */
+.cms{
+    color: brown;
+    margin-top: 5%;    
+}
+
+.alog{
+    color: rgb(241, 74, 32);
+    margin-top: 1%;
+}
+
+
+.col-4{
+    color: rgb(1, 6, 10);
+    font-size: 17px;
+    font-weight: lighter;
+    margin-left: 60%;
+    margin-right: 4%;
+    
+    height: 35%; 
+    font-family: Montserrat, sans-serif;
+    letter-spacing: 2px;
+}
+
+.head_logo{
+    margin: 1.5%;
+}
+
+.ad1{
+    background-color: #2d2d30;
+    font-family: Montserrat, sans-serif;
+    letter-spacing: 2px;
+    width: fit-content;
+    }
+.status{
+    font-size: 30px;
+    color: #2d2d30;
+    position: fixed;
+    margin-top: 10%;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+
+#pform{
+    border: 2px solid black;
+    margin: 2%;
+    
+}
+
+.status1{
+    font-size: 30px;
+    font-family: Montserrat, sans-serif;
+    left: 70%;
+    top: 30%;
+    position: absolute;
+}
+
+.pmt1{
+    color: azure;
+    
+}
+

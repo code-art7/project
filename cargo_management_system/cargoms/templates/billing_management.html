@@ -1,116 +1,113 @@
-`<!DOCTYPE html>
-<html>
-    <head>
-        <title>Billing Details</title>
-        <style>
-            table,th,td{
-                border: 2px solid black;
-                padding: 1px,1px ,1px ,1px;
-                border-collapse: collapse;    
-                text-align: center;
-                
-            }
-            th{
-                font-size: 18px;
-                font-family: monospace;
-                color: gray;
-            }
-            .topAdder{
-                background-color: transparent;
-                margin: 10px;
-            }
-            .topAdder section{
-                display: inline-table;
-                min-width: 8cm;
-                
-            }
-        </style>
-    </head>
-    <body style="background-color: lightgreen;">
-        <h1 style="text-align: center;">Cargo Management Details</h1>
-        <h2 style="text-align: center;">Billing Page</h2>
-        <h2 style="text-align: center;">Company name</h2>
-        <address style="text-align: center;">Company address</address >
-        <div class="topAdder" >
-            <section class="1001">
-                <h4>Name & Addess</h4>
-                <p>Address: <br>
-                    City:<br>
-                    State:<br>
-                    StateCode:<br>
-                    Contact :<br>
-                    Email:<br>
-                    GSTIN:<br>
-                </p>
-            </section>
-            <section class="1002">
-                <h4>SHIP TO PARTY</h4>
-                <p>Address:<br>
-                    City:<br>
-                    State:<br>
-                    StateCode:<br>
-                    Contact :<br>
-                    Email:<br>
-                    GSTIN:<br>
-                </p>
-            </section>
-            <section class="1003">
-                <h5>BUYER NO.</h5>
-                <h5>Ship to Party</h5>
-                <h5>Brand:</h5>
-                <h5>Purchase Order No.</h5>
-            </section>
-            <section class="1004">
-                <p>
-                    Invoice No.       :<br>
-                    Date              :<br>
-                    Eway bill no.     :<br>
-                    Transporter       :<br>
-                    Number of Cartoon : <br>
-                    Total Weight      :<br>
-                </p>
-            </section>
-        </div c>
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        td {
+            text-align: left; 
+            padding: 3px; 
+            padding-left: 10px;
+        }
+    </style>
+<div class="bill">
 
-        <table style="width: 100%;">
-            <tr>
-                <th>Material Code</th>
-                <th>HSN code</th>
-                <th>Description of Goods</th>
-                <th>Grade/Group</th>
-                <th>Units</th>
-                <th>Unit Price</th>
-                <th>Gross Value</th>
-                <th>Discount</th>
-                <th>Freight(In INR)</th>
-                <th>Taxable Values</th>
-                <th>Intergrated Tax</th>
-           <tr>
-               <td>empty</td>
-               <td>empty</td>
-               <td>empty</td>
-               <td>empty</td>
-               <td>empty</td>
-               <td>empty</td>
-               <td>empty</td>
-               <td>empty</td>
-               <td>empty</td>
-               <td>empty</td>
-               <td>empty</td>
-           </tr> 
-           <tr>
-            <td>empty</td>
-            <td>empty</td>
-            <td>empty</td>
-            <td>empty</td>
-            <td>empty</td>
-            <td>empty</td>
-            <td>empty</td>
-            <td>empty</td>
-            <td>empty</td>
-            <td>empty</td>
-            <td>empty</td>
-        </tr> 
+<h3 style="text-align: center;"><strong>CONSIGNMENT INVOICE</strong></h3>
+<p>&nbsp;</p>
+<table style="width: 100%; padding: 10px;" cellpadding="2" border="1px">
+<tbody>
+<tr>
+<td style="width: 295px;"><strong>SENDER DETAILS</strong></td>
+<td style="width: 297px;"><strong>INVOICE DETAILS</strong></td>
+</tr>
+<tr>
+<td style="width: 295px;">COMPANY NAME :&nbsp;</td>
+<td style="width: 297px;">INVOICE NO :</td>
+</tr>
+<tr>
+<td style="width: 295px;">ADDRESS 1 :&nbsp;</td>
+<td style="width: 297px;">DATE :</td>
+</tr>
+<tr>
+<td style="width: 295px;">ADDRESS 2 :</td>
+<td style="width: 297px;">&nbsp;</td>
+</tr>
+<tr>
+<td style="width: 295px;">CONTACT :</td>
+<td style="width: 297px;">&nbsp;</td>
+</tr>
+<tr>
+<td style="width: 295px;">EMAIL :</td>
+<td style="width: 297px;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><strong>SHIPMENT/RECEIVER DETAILS</strong></p>
+<table style="width: 100%;" border="1" cellspacing="2" cellpadding="2">
+<tbody>
+<tr>
+<td style="width: 195px;">Reciever Name</td>
+<td style="width: 223px;">Reciever Address</td>
+<td style="width: 196px;">Reciever City</td>
+</tr>
+<tr>
+<td style="width: 195px;">r</td>
+<td style="width: 223px;">a</td>
+<td style="width: 196px;">c</td>
+</tr>
+<tr>
+<td style="width: 195px;">Reciever State</td>
+<td style="width: 223px;">Reciever Pincode</td>
+<td style="width: 196px;">Reciever Contact</td>
+</tr>
+<tr>
+<td style="width: 195px;">s</td>
+<td style="width: 223px;">p</td>
+<td style="width: 196px;">c</td>
+</tr>
+</tbody>
+</table>
+<br>    
+<p> <strong> CONSIGNMENT DETAILS</strong></p>
+<table style="width: 100%;" border="1">
+    <tbody>
+    <tr>
+    <td style="width: 15%;">ITEM&nbsp;&nbsp;</td>
+    <td style="width: 26%;">DESCRIPTION</td>
+    <td style="width: 15.0152%;">QTY</td>
+    <td style="width: 14.9848%;">UNIT PRICE</td>
+    <td style="width: 20%;">TOTAL</td>
+    </tr>
+    <tr>
+    <td style="width: 15%;">0</td>
+    <td style="width: 26%;">#</td>
+    <td style="width: 15.0152%;">0</td>
+    <td style="width: 14.9848%;">0</td>
+    <td style="width: 20%;">0</td>
+    </tr>
+    </tbody>
+</table>
+<br>
+    <table style="width: 40.5245%; float: right;" border="1px">
+        <tbody>
+        <tr>
+        <td style="width: 47.5105%;">Subtotal</td>
+        <td style="width: 57.4895%;">&nbsp;</td>
+        </tr>
+        <tr>
+        <td style="width: 47.5105%;">Tax Rate</td>
+        <td style="width: 57.4895%;">&nbsp;</td>
+        </tr>
+        <tr>
+        <td style="width: 47.5105%;">Total Tax</td>
+        <td style="width: 57.4895%;">&nbsp;</td>
+        </tr>
+        <tr>
+        <td style="width: 47.5105%; text-align: left;">TOTAL</td>
+        <td style="width: 57.4895%;">&nbsp;</td>
+        </tr>
+        </tbody>
         </table>
-
-    </body>
+        <br><br><br><br><br>
+        <br><br>    
+<p>This is computer generated invoice and hence does not required signature or stamp.</p>
+</div>
+{% endblock %}

@@ -4,13 +4,16 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import SignUpForm, SignInForm
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
-from .models import employee_Details, per_table, cust_details, cust_pkg_details,transc_Details,consign_pkg, state_code, temp_pkg_model,t_o_delivery,consignDetails
+from .models import employee_Details, per_table, cust_details, cust_pkg_details,transc_Details,consign_pkg, state_code, temp_pkg_model,t_o_delivery,consign_Details
 from cargoms.forms import sender_details_form,receiver_details_form,cust_pkg_form,tr_form
 from datetime import date, time
 from django.db.models import Count
 import datetime
 import mysql.connector
 import array as arr
+
+def index(request):
+    return redirect('login')
 
 def home(request):
     det = employee_Details.objects.all()
@@ -20,8 +23,9 @@ def home(request):
     if request.user.is_authenticated:
         for a in det:
             if a.e_userName == request.user.username:
-                n = a.e_per_id
+                n = a.e_per_id 
                 print(n)
+               
 
                 var = list(n)
                 l1 = []
@@ -54,6 +58,7 @@ def login_v(request):
     return render(request, 'login.html', { 'signinform' : form })
 
 def registerUser(request):
+    
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -128,11 +133,13 @@ def logout_v(request):
     return redirect('login')
 
 def cust_det(request):
+    det = employee_Details.objects.all()
     c_data = cust_details.objects.all()
     p_data = cust_pkg_details.objects.all()
-    return render(request, 'customer_details.html', { 'c_data' : c_data, 'p_data': p_data })    
+    return render(request, 'customer_details.html', { 'c_data' : c_data, 'p_data': p_data, 'details': det })    
 
 def expend_(request):
+    det = employee_Details.objects.all()
     c_data = cust_details.objects.all()
     p_data = cust_pkg_details.objects.all()
     t_data = transc_Details.objects.all()
@@ -142,9 +149,10 @@ def expend_(request):
     res = int("".join(s)) 
 
     a = res
-    return render(request, 'expend.html', { 'a' : a, 'c_data':c_data, 'p_data':p_data, 't_data': t_data })
+    return render(request, 'expend.html', { 'a' : a, 'c_data':c_data, 'p_data':p_data, 't_data': t_data, 'details': det })
 
 def add_entry(request):
+    det = employee_Details.objects.all()
     x = datetime.datetime.now()
     today = date.today()
     a = x.year
@@ -172,7 +180,7 @@ def add_entry(request):
     p_form = cust_pkg_form(initial={'pkg_r_date' : today, 'pkg_r_time' : t_ime, 'pkg_d_date' : today, 'pkg_d_time' : t_ime })
     t_form = tr_form(initial={'t_date' : today, 't_time' : t_ime })
 
-    return render(request, 'add_entry.html', { 's_form' : s_form, 'r_form': r_form, 'p_form': p_form, 't_form': t_form })
+    return render(request, 'add_entry.html', { 's_form' : s_form, 'r_form': r_form, 'p_form': p_form, 't_form': t_form , 'details': det})
 
 def cust_save(request):
     if request.method == 'POST':
@@ -196,6 +204,8 @@ def cust_save(request):
         pkg_d_date = request.POST['pkg_d_date']
         pkg_d_time = request.POST['pkg_d_time']
         pkg_weight = request.POST['pkg_weight']
+        pkg_rate_p_piece = request.POST['pkg_rate_p_piece']
+        pkg_quantity = request.POST['quantity']
         ship_service_type = request.POST['ship_service_type']
 
         t_amt = request.POST['t_amt']
@@ -215,15 +225,15 @@ def cust_save(request):
             else:
                 d = 1
 
-        p_det = cust_pkg_details(order_id=order_id, cust_name=cust_name, pkg_r_date=pkg_r_date, pkg_r_time=pkg_r_time, pkg_d_date=pkg_d_date,pkg_d_time=pkg_d_time, pkg_weight=pkg_weight, pkg_ship_add=r_add, pkg_ship_city=r_city, pkg_ship_pincode= r_pincode, ship_service_type=ship_service_type,s_i_no = d)
+        p_det = cust_pkg_details(order_id=order_id, cust_name=cust_name, pkg_r_date=pkg_r_date, pkg_r_time=pkg_r_time, pkg_d_date=pkg_d_date,pkg_d_time=pkg_d_time, pkg_weight=pkg_weight, pkg_ship_add=r_add, pkg_ship_city=r_city, pkg_ship_pincode= r_pincode, ship_service_type=ship_service_type,s_i_no = d, quantity=pkg_quantity, pkg_rate_p_piece=pkg_rate_p_piece)
         #Customer details
         p_det.save()
 
-        t_det = transc_Details(order_id=order_id, cust_name=cust_name, t_amt = t_amt, t_date=t_date, t_time=t_time)
+        t_det = transc_Details(order_id=order_id, cust_name=cust_name, t_amt = t_amt, t_date=t_date, t_time=t_time,quantity=pkg_quantity, pkg_rate_p_piece=pkg_rate_p_piece)
         #package Details
         t_det.save()
 
-        temp_p_model = temp_pkg_model(order_id=order_id, cust_name=cust_name, r_state=r_state, r_city=r_city, pkg_r_date=pkg_r_date,pkg_weight=pkg_weight)
+        temp_p_model = temp_pkg_model(order_id=order_id, cust_name=cust_name, r_state=r_state, r_city=r_city, pkg_r_date=pkg_r_date,pkg_weight=pkg_weight,pkg_quantity=pkg_quantity, pkg_rate_p_piece=pkg_rate_p_piece)
         # save to temp model
         temp_p_model.save()
 

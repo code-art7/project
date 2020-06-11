@@ -201,3 +201,24 @@ INSERT INTO `cargoms_state_code`(`state_code`, `state`) VALUES
 ('UP', 'UTTAR PRADESH'),
 ('WB', 'WEST BENGAL'),
 ('TS', 'TELANGANA');
+
+INSERT INTO `cargoms_per_table`('per','Description') VALUES
+ 
+('1','Customer Details'),
+('2','Cargo Details'),
+('3','Transaction Details'),
+('4','Time of Delivery Manegement'),
+('5','Billing management'),
+('6','Enquiry')
+
+
++----+-----+-----------------------------+
+| id | per | Description                 |
++----+-----+-----------------------------+
+|  1 |   1 | Customer Details            |
+|  2 |   2 | Cargo Details               |
+|  3 |   3 | Transaction Details         |
+|  4 |   4 | Time of Delivery Manegement |
+|  5 |   5 | Billing management          |
+|  6 |   6 | Enquiry                     |
++----+-----+-----------------------------+

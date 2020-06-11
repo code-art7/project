@@ -22,6 +22,7 @@ class employee_Details(models.Model):
 ########### CUSTOMER MODULE ################
 class cust_details(models.Model):
     order_id = models.IntegerField(primary_key=True)
+
     cust_name = models.CharField( max_length=50)
     s_contact = models.CharField(max_length=10)
     s_add = models.CharField(max_length=100)
@@ -38,12 +39,14 @@ class cust_details(models.Model):
     
 class cust_pkg_details(models.Model):
     order_id = models.IntegerField(primary_key=True)
-    s_i_no = models.IntegerField()
     cust_name = models.CharField(max_length=45)
+    s_i_no = models.IntegerField()
     pkg_r_date = models.DateField()
     pkg_r_time = models.TimeField()
     pkg_d_date = models.DateField()
     pkg_d_time = models.TimeField()
+    quantity = models.IntegerField()
+    pkg_rate_p_piece = models.IntegerField()
     pkg_weight = models.IntegerField()
     pkg_ship_add = models.TextField()
     pkg_ship_city = models.CharField(max_length=45)
@@ -57,6 +60,8 @@ class cust_pkg_details(models.Model):
 class transc_Details(models.Model):
     order_id = models.IntegerField(primary_key=True)
     cust_name = models.CharField( max_length=50)
+    quantity = models.IntegerField()
+    pkg_rate_p_piece = models.IntegerField()
     t_amt = models.IntegerField()
     t_date = models.DateField()
     t_time = models.TimeField()
@@ -65,8 +70,9 @@ class transc_Details(models.Model):
         return self.order_id
 
 ########### CARGO MODULE #############
-class consignDetails(models.Model):
-    c_id = models.IntegerField(primary_key = True )
+class consign_Details(models.Model):
+    p_id = models.IntegerField(primary_key=True)
+    c_id = models.CharField(max_length=20 )
     c_desc = models.TextField()
     c_quan = models.IntegerField()
     c_to = models.TextField()
@@ -74,22 +80,12 @@ class consignDetails(models.Model):
 
     def __str__(self):
         return [self.c_id ]
-    
+
 class consign_pkg(models.Model):
-    p_id = models.IntegerField(primary_key=True)
     c_id = models.CharField(max_length=20 )
-    order_id = models.IntegerField()
-    pkg_r_date = models.DateField()
-    d_sh_date = models.DateField()
-    pkg_weight = models.IntegerField()
-    cust_name = models.CharField( max_length=50)
-    r_city = models.CharField(max_length=30)
-    r_state = models.CharField(max_length=30)
+    order_id = models.IntegerField(primary_key=True)
 
-
-    def __str__(self):
-        return [self.c_id ]
-
+    
 ############ TIME OF DELIVERY MODULE ##############
 class t_o_delivery(models.Model):
     c_id = models.IntegerField(primary_key = True )
@@ -112,5 +108,6 @@ class temp_pkg_model(models.Model):
     r_state = models.CharField(max_length=30)
     pkg_r_date = models.DateField()
     pkg_weight = models.IntegerField()
-
+    pkg_quantity = models.IntegerField()
+    pkg_rate_p_piece = models.IntegerField()
 
