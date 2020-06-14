@@ -4,10 +4,15 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import SignUpForm, SignInForm
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
-from .models import employee_Details, per_table, cust_details, cust_pkg_details,transc_Details,consign_pkg, state_code, temp_pkg_model,t_o_delivery,consign_Details
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from .models import employee_Details, per_table, cust_details, cust_pkg_details,transc_Details, state_code, temp_pkg_model,t_o_delivery,consign_Details
 from cargoms.forms import sender_details_form,receiver_details_form,cust_pkg_form,tr_form
 from datetime import date, time
 from django.db.models import Count
+from weasyprint import HTML
+
 import datetime
 import mysql.connector
 import array as arr
@@ -25,8 +30,7 @@ def home(request):
             if a.e_userName == request.user.username:
                 n = a.e_per_id 
                 print(n)
-               
-
+            
                 var = list(n)
                 l1 = []
                 for i in range(6):
@@ -58,7 +62,6 @@ def login_v(request):
     return render(request, 'login.html', { 'signinform' : form })
 
 def registerUser(request):
-    
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -240,81 +243,116 @@ def cust_save(request):
         return redirect('cust_det')
 
 def cargo_det(request):
-    c_pkg = consign_pkg.objects.all()
-    return render(request, 'cargo_details2.html', { 'c_pkg' : c_pkg })
-
-
-def sort_data(request):
+    det = employee_Details.objects.all()
+    c_pkg = consign_Details.objects.all()
     t_data = temp_pkg_model.objects.all()
     state_data = state_code.objects.all()
 
     today = date.today()
     tommorow = date.today() + datetime.timedelta(days=1)
-    x = datetime.datetime.now()
-    today = date.today()
-    a = x.year
-    b = x.month
-    c = x.day
 
     s_c = None
-    #n = None
+
     for t_d in t_data:
         for j in state_data:    
             if (t_d.r_state.lower() == j.state.lower()):
                 s_c = j.state_code
                 print(s_c)
-
-        list = ['C','P',s_c, a,b,c] 
+    
+        list = ['C','P',t_d.order_id,s_c] 
         s = [str(i) for i in list] 
         res = "".join(s)
         
-        cp = consign_pkg(c_id=res,order_id=t_d.order_id,pkg_r_date=t_d.pkg_r_date,d_sh_date=tommorow,p_id=t_d.order_id)
-        
+        cp = consign_Details(c_id=res,order_id=t_d.order_id,p_id=t_d.order_id,c_quan=t_d.pkg_quantity,c_to=t_d.r_city,pkg_r_date=t_d.pkg_r_date,pkg_weight=t_d.pkg_weight)    
         cp.save()
-    
-    #t_data.delete()
 
-    return redirect('cargo_det')
+        to = t_o_delivery(c_id=res, c_to=t_d.r_city, d_date=tommorow )
+        to.save()
 
-def consign_Details_save(request):
-    today = date.today()
-    c_d = consign_pkg.objects.all().filter(pkg_r_date=today)
+    return render(request, 'cargo_details2.html', { 'c_pkg' : c_pkg, 'details': det })
 
-    l = []
-    
-    for i in c_d:
-        l.append(i.c_id)
-    
-    for c in [ele for ind, ele in enumerate(l,1) if ele not in l[ind:]]:
-        count = 0
-        for ele in l:
-            if c == ele:
-                count += 1
-        print("{} {}".format(c,count))
-        count = 0
-     
-    return redirect('cargo_det')
 
 def trans_det(request):
-    return render(render, 'transaction_details.html')
+    t_data = transc_Details.objects.all()
+    return render(request, 'transaction_details.html', { 't_data': t_data })
 
-def bill_det(request):
-    return render(request, 'billing_management.html')
+def bill_gen(request):
+    bill_to_obtain = request.POST['v']
+    list = bill_to_obtain
+    a = [str(b) for b in list] 
+    c = int("".join(a)) 
+
+    today = date.today()
+    cust_det = cust_details.objects.all()
+    cust_pkg_det = cust_pkg_details.objects.all()
+    consign_Det = consign_Details.objects.all()
+    
+    in_sr = 0
+    for i in consign_Det:
+        in_sr = in_sr+1
+
+    list = ['1000000', in_sr] 
+    s = [str(i) for i in list] 
+    res = "".join(s)
+
+    print(res)
+    return render(request, 'billing_management.html', { 'cust_details': cust_det, 'cust_pkg_details':cust_pkg_det, 'consign_Details':consign_Det,'res': res, 'today':today, 'new_var': c})
+
+#helping https://simpleisbetterthancomplex.com/tutorial/2016/08/08/how-to-export-to-pdf.html
+
+def pdf_view(request):
+    bill_to_obtain = request.POST['v']
+    list = bill_to_obtain
+    a = [str(b) for b in list] 
+    c = int("".join(a)) 
+
+    today = date.today()
+    cust_det = cust_details.objects.all()
+    cust_pkg_det = cust_pkg_details.objects.all()
+    consign_Det = consign_Details.objects.all()
+    
+    in_sr = 0
+    for i in consign_Det:
+        in_sr = in_sr+1
+
+    list = ['1000000', in_sr] 
+    s = [str(i) for i in list] 
+    res = "".join(s)
+
+    print(res)
+    html_string = render_to_string('billing_management.html', { 'cust_details': cust_det, 'cust_pkg_details':cust_pkg_det, 'consign_Details':consign_Det,'res': res, 'today':today, 'new_var': c})
+    print("hello1")
+
+    html = HTML(string=html_string)
+    html.write_pdf(target='.templates/');
+
+    fs = FileSystemStorage('.templates')
+    print("hello2")
+    with fs.open('mypdf.pdf') as pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        print("hello3")
+        
+        response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
+        print("hello4")
+
+        return response
+    return response
 
 def t_o_d(request):
-    return render(request, 'time_of_delivery.html')
+    tommorow = date.today() + datetime.timedelta(days=1)
+
+    t_data = consign_Details.objects.all()
+    return render(request, 'time_of_delivery.html', { 't_data': t_data, 'tommorow': tommorow })
 
 def enquiry_(request):
     a = cust_details.objects.all()
     b = cust_pkg_details.objects.all()
     c = transc_Details.objects.all()
     d = temp_pkg_model.objects.all()
-    e = consign_pkg.objects.all()
 
     a.delete()
     b.delete()
     c.delete()
     d.delete()
-    e.delete()
 
     return render(request, 'enquiry.html')

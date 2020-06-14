@@ -1,8 +1,27 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
-{% block content2 %}
-<div>
-    Time of Delivery
+{% block content %}
+{% for t_d in t_data %}
+
+<table class="table table-striped">
+  <h4> TIME OF DELIVERY</h4>
+  <tr>
+    <td><b>CONSIGN ID</b></td>
+    <td><b>ORDER ID</b></td>
+    <td><b>RECEIVER CITY</b></td>
+    <td><b>PACKAGE RECEIVING DATE</b></td>
+    <td><b>DELIVERY SCHEDULE</b></td>
+</tr>
+<tr>
+    <td>{{t_d.c_id}}</td>
+    <td>{{t_d.order_id}}</td>
+    <td>{{t_d.c_to}}</td>
+    <td>{{t_d.pkg_r_date}}</td>
+    <td>{{tommorow}}</td>
+</tr>
+</table>
 </div>
+{% endfor %}
 {% endblock %}
 

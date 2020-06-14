@@ -1,51 +1,26 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-        <h1 style="text-align: center;">Cargo Management Details</h1>
-        <h2 style="text-align: center;">Transaction Details</h2> 
-        <form method="POST" action="/logout/" class="d-flex justify-content-center" >
-            {% csrf_token %}
-            <div class="col-6">  
-            <button type="submit" class="btn btn-primary">LOG OUT</button>
-          </div>  
-          </form>
-        <table style="width: 100%;">
-            <tr>
-                <th>Order Id</th>
-                <th>Customer Name</th>
-                <th>Transaction Id</th>
-                <th>Transaction date</th>
-                <th>Amount</th>
-                <th>Shipment Date</th>
-                <th>Status</th>
-            </tr>
-            <tr >
-                <td>1234</td>
-                <td>Name</td>
-                <td>T_id</td>
-                <td>T_date</td>
-                <td>amt</td>
-                <td>date</td>
-                <td>success</td>
-            </tr>
-            <tr >
-                <td>1234</td>
-                <td>Name</td>
-                <td>T_id</td>
-                <td>T_date</td>
-                <td>amt</td>
-                <td>date</td>
-                <td>pending</td>
-            </tr>
-            <tr >
-                <td>1234</td>
-                <td>Name</td>
-                <td>T_id</td>
-                <td>T_date</td>
-                <td>amt</td>
-                <td>date</td>
-                <td>rejected</td>
-            </tr>
-        </table>
+{% for t_d in t_data %}
+
+<table class="table table-striped">
+  <h4> TRANSACTION DETAILS</h4>
+  <tr>
+    <td><b>ORDER ID</b></td>
+    <td><b>CUSTOMER NAME</b></td>
+    <td><b>TRANSACTION AMOUNT</b></td>
+    <td><b>TRANSACTION DATE</b></td>
+    <td><b>TRANSACTION TIME</b></td>
+</tr>
+<tr>
+    <td>{{t_d.order_id}}</td>
+    <td>{{t_d.cust_name}}</td>
+    <td>{{t_d.t_amt}}</td>
+    <td>{{t_d.t_date}}</td>
+    <td>{{t_d.t_time}}</td>
+</tr>
+</table>
+</div>
+{% endfor %}
 
 {% endblock %}

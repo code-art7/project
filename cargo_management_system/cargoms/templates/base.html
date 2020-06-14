@@ -19,7 +19,6 @@
                <a href="#logo" class="logo"> CARGOMS</a>
                  {% for det in details %}
                 {% if user.is_authenticated %}
-                {% if request.user.username == det.e_userName %}
                     <div class="header-right">
                         {% if det.e_per_id == '111111' %}
                         <a href="{% url 'registerUser' %}"> REGISTER USER</a>
@@ -27,7 +26,6 @@
                         <a href="{% url 'home' %}" > HOME</a>
                         <a href="{% url 'logout' %}" >LOGOUT</a>
                     </div>
-                {% endif %}
                 {% endif %}
                 {% endfor %}
         </div >

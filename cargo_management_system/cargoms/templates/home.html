@@ -35,13 +35,6 @@
       </td>
       </tr>
        {% endif %}
-       {% if a.Description == 'Billing management' %}
-      <tr>
-       <td>
-       <a href="{% url 'bill_det' %}"  >  {{ a.Description }} </a>
-      </td>
-       {% endif %}
-
        {% if a.Description == 'Enquiry' %}
        <td>
        <a href="{% url 'enquiry_' %}"  >  {{ a.Description }} </a>

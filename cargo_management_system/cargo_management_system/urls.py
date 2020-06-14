@@ -28,15 +28,13 @@ urlpatterns = [
     url(r'^cust_det/',views.cust_det, name="cust_det"),
     url(r'^cargo_details', views.cargo_det, name="cargo_det"),
     url(r'^transactions_details', views.trans_det, name="trans_det"),
-    url(r'^billing_details', views.bill_det, name="bill_det"),
+    url(r'^billing_details', views.bill_gen, name="bill_generate"),
     url(r'^enquiry', views.enquiry_, name="enquiry_"),
     url(r'^time_of_delivery_management', views.t_o_d, name="t_o_d"),
     url(r'^add_entry/', views.add_entry, name="add_entry"),
     url(r'^cust_save',views.cust_save, name="cust_save"),
     url(r'^expend/', views.expend_ , name="expend"),
-    url(r'^sort_data', views.sort_data, name="sort_data"),
-    url(r'^consign_details', views.consign_Details_save, name="c_d_s"),
-    url(r'^', views.index, name="index")
+    url(r'^', views.index, name="index"),
+    url(r'^print_bill',views.pdf_view, name="print_bill")
     
-
 ]

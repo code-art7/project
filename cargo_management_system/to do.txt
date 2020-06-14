@@ -222,3 +222,39 @@ INSERT INTO `cargoms_per_table`('per','Description') VALUES
 |  5 |   5 | Billing management          |
 |  6 |   6 | Enquiry                     |
 +----+-----+-----------------------------+
+
+
+
+
+
+def sort_data(request):
+    t_data = temp_pkg_model.objects.all()
+    state_data = state_code.objects.all()
+
+    today = date.today()
+    tommorow = date.today() + datetime.timedelta(days=1)
+    x = datetime.datetime.now()
+    today = date.today()
+    a = x.year
+    b = x.month
+    c = x.day
+
+    s_c = None
+    #n = None
+    for t_d in t_data:
+        for j in state_data:    
+            if (t_d.r_state.lower() == j.state.lower()):
+                s_c = j.state_code
+                print(s_c)
+
+        list = ['C','P',s_c, a,b,c] 
+        s = [str(i) for i in list] 
+        res = "".join(s)
+        
+        cp = consign_Details(c_id=res,order_id=t_d.order_id,pkg_r_date=t_d.pkg_r_date,d_sh_date=tommorow,p_id=t_d.id)
+        
+        cp.save()
+    
+    #t_data.delete()
+
+    return redirect('cargo_det')

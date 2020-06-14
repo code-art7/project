@@ -20,13 +20,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block content2 %}
-<div class="d-flex justify-content-end ">
-  <a href="{% url 'logout' %}" class="btn btn-primary" style="margin: 5px;">LOG OUT</a>
-
-</div>
-{% endblock %}
-
 {% block content %}
 
 <div id="t">
@@ -87,6 +80,18 @@
 
   <table>
     <h4> PACKAGE DETAILS</h4>
+  <tr>
+    <td><b>WEIGHT</b></td>
+    <td>{{p_dd.pkg_weight}}</td>
+    <td><b>SERVICE TYPE</b></td>
+    <td>{{p_dd.ship_service_type}}</td>
+  </tr>
+  <tr>
+    <td><b>QUANTITY</b></td>
+    <td>{{p_dd.quantity}}</td>
+    <td><b>RATE PER PIECE</b></td>
+    <td>{{p_dd.pkg_rate_p_piece}}</td>
+  </tr>
   <tr>
     <td><b>WEIGHT</b></td>
     <td>{{p_dd.pkg_weight}}</td>

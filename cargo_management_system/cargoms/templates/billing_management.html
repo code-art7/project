@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
     <style>
         td {
             text-align: left; 
@@ -7,106 +8,131 @@
             padding-left: 10px;
         }
     </style>
-<div class="bill">
 
+<div class="bill">
 <h3 style="text-align: center;"><strong>CONSIGNMENT INVOICE</strong></h3>
 <p>&nbsp;</p>
-<table style="width: 100%; padding: 10px;" cellpadding="2" border="1px">
-<tbody>
-<tr>
-<td style="width: 295px;"><strong>SENDER DETAILS</strong></td>
-<td style="width: 297px;"><strong>INVOICE DETAILS</strong></td>
-</tr>
-<tr>
-<td style="width: 295px;">COMPANY NAME :&nbsp;</td>
-<td style="width: 297px;">INVOICE NO :</td>
-</tr>
-<tr>
-<td style="width: 295px;">ADDRESS 1 :&nbsp;</td>
-<td style="width: 297px;">DATE :</td>
-</tr>
-<tr>
-<td style="width: 295px;">ADDRESS 2 :</td>
-<td style="width: 297px;">&nbsp;</td>
-</tr>
-<tr>
-<td style="width: 295px;">CONTACT :</td>
-<td style="width: 297px;">&nbsp;</td>
-</tr>
-<tr>
-<td style="width: 295px;">EMAIL :</td>
-<td style="width: 297px;">&nbsp;</td>
-</tr>
-</tbody>
-</table>
+{% for cust_d in cust_details %}
+{% if cust_d.order_id == new_var %}
+<table style="width: 100%; padding: 10px;" border="1px" cellpadding="2">
+    <tbody>
+    <tr>
+    <td style="width: 295px;"><strong>SENDER DETAILS</strong></td>
+    <td style="width: 295px;">&nbsp;</td>
+    <td style="width: 297px;"><strong>INVOICE DETAILS</strong></td>
+    <td style="width: 297px;">&nbsp;</td>
+    </tr>
+    <tr>
+    <td style="width: 295px;"><strong> COMPANY NAME :&nbsp;</strong></td>
+    <td style="width: 295px;">{{ cust_d.cust_name }}</td>
+    <td style="width: 297px;"><strong> INVOICE NO : </strong></td>
+    <td style="width: 297px;">{{ res }}</td>
+    </tr>
+    <tr>
+    <td style="width: 295px;"><strong>ADDRESS 1 :&nbsp;</strong></td>
+    <td style="width: 295px;">{{ cust_d.s_add }}, {{cust_d.s_city}}</td>
+    <td style="width: 297px;"><strong> DATE :&nbsp;</strong></td>
+    <td style="width: 297px;">{{ today }}</td>
+    </tr>
+    <tr>
+    <td style="width: 295px;"><strong> ADDRESS 2 :&nbsp;</strong></td>
+    <td style="width: 295px;">{{ cust_d.s_add }}, {{cust_d.s_city}}</td>
+    <td style="width: 297px;">&nbsp;</td>
+    <td style="width: 297px;">&nbsp;</td>
+    </tr>
+    <tr>
+    <td style="width: 295px;"><strong> CONTACT :&nbsp;</strong></td>
+    <td style="width: 295px;">{{ cust_d.s_contact }}</td>
+    <td style="width: 297px;">&nbsp;</td>
+    <td style="width: 297px;">&nbsp;</td>
+    </tr>
+    </tbody>
+    </table>
+{% endif %}
+{% endfor %}
 <p>&nbsp;</p>
 <p><strong>SHIPMENT/RECEIVER DETAILS</strong></p>
+{% for cust_det in cust_details %}
+{% if cust_det.order_id == new_var %}
 <table style="width: 100%;" border="1" cellspacing="2" cellpadding="2">
-<tbody>
-<tr>
-<td style="width: 195px;">Reciever Name</td>
-<td style="width: 223px;">Reciever Address</td>
-<td style="width: 196px;">Reciever City</td>
-</tr>
-<tr>
-<td style="width: 195px;">r</td>
-<td style="width: 223px;">a</td>
-<td style="width: 196px;">c</td>
-</tr>
-<tr>
-<td style="width: 195px;">Reciever State</td>
-<td style="width: 223px;">Reciever Pincode</td>
-<td style="width: 196px;">Reciever Contact</td>
-</tr>
-<tr>
-<td style="width: 195px;">s</td>
-<td style="width: 223px;">p</td>
-<td style="width: 196px;">c</td>
-</tr>
-</tbody>
-</table>
+    <tbody>
+    <tr>
+    <td style="width: 195px;"><strong>Reciever Name</strong></td>
+    <td style="width: 223px;"><strong>Reciever Address</strong></td>
+    <td style="width: 196px;"><strong>Reciever City</strong></td>
+    </tr>
+    <tr>
+    <td style="width: 195px;">{{cust_det.r_name}}</td>
+    <td style="width: 223px;">{{cust_det.r_add}}</td>
+    <td style="width: 196px;">{{cust_det.r_city}}</td>
+    </tr>
+    <tr>
+    <td style="width: 195px;"><strong>Reciever State</strong></td>
+    <td style="width: 223px;"><strong>Reciever Pincode</strong></td>
+    <td style="width: 196px;"><strong>Reciever Contact</strong></td>
+    </tr>
+    <tr>
+    <td style="width: 195px;">{{cust_det.r_state}}</td>
+    <td style="width: 223px;">{{cust_det.r_pincode}}</td>
+    <td style="width: 196px;">{{cust_det.r_contact}}</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>&nbsp;</p>
+{% endif %}
+{% endfor %}
 <br>    
 <p> <strong> CONSIGNMENT DETAILS</strong></p>
 <table style="width: 100%;" border="1">
     <tbody>
     <tr>
-    <td style="width: 15%;">ITEM&nbsp;&nbsp;</td>
-    <td style="width: 26%;">DESCRIPTION</td>
+    <td style="width: 15%;">ORDER ID</td>
+    <td style="width: 26%;">ITEM NAME</td>
     <td style="width: 15.0152%;">QTY</td>
     <td style="width: 14.9848%;">UNIT PRICE</td>
     <td style="width: 20%;">TOTAL</td>
     </tr>
     <tr>
-    <td style="width: 15%;">0</td>
-    <td style="width: 26%;">#</td>
-    <td style="width: 15.0152%;">0</td>
-    <td style="width: 14.9848%;">0</td>
-    <td style="width: 20%;">0</td>
+    {% for cust_pkg in cust_pkg_details %}
+    {% if cust_pkg.order_id == new_var %}
+    <td style="width: 15%;">{{cust_pkg.order_id}}</td>
+    <td style="width: 26%;">{{ cust_pkg.item_name }}</td>
+    <td style="width: 15.0152%;">{{ cust_pkg.quantity }}</td>
+    <td style="width: 14.9848%;">{{ cust_pkg.pkg_rate_p_piece }}</td>
+    <td style="width: 20%;">{% widthratio cust_pkg.pkg_rate_p_piece 1 cust_pkg.quantity %}</td>
     </tr>
-    </tbody>
+</tbody>
 </table>
 <br>
-    <table style="width: 40.5245%; float: right;" border="1px">
-        <tbody>
+<table style="width: 40.5245%; float: right;" border="1px">
+    <tbody>
         <tr>
-        <td style="width: 47.5105%;">Subtotal</td>
-        <td style="width: 57.4895%;">&nbsp;</td>
+            <td style="width: 47.5105%;">Subtotal</td>
+            <td style="width: 57.4895%;">{%widthratio cust_pkg.pkg_rate_p_piece 1 cust_pkg.quantity%}
+            </td>
         </tr>
         <tr>
-        <td style="width: 47.5105%;">Tax Rate</td>
-        <td style="width: 57.4895%;">&nbsp;</td>
+            <td style="width: 47.5105%;">Tax Rate</td>
+            <td style="width: 57.4895%;">10%</td>
         </tr>
         <tr>
-        <td style="width: 47.5105%;">Total Tax</td>
-        <td style="width: 57.4895%;">&nbsp;</td>
+            <td style="width: 47.5105%;">Total Tax</td>
+            <td style="width: 57.4895%;">{%widthratio cust_pkg.pkg_rate_p_piece 1 cust_pkg.quantity%}</td>
         </tr>
         <tr>
-        <td style="width: 47.5105%; text-align: left;">TOTAL</td>
-        <td style="width: 57.4895%;">&nbsp;</td>
+            <td style="width: 47.5105%; text-align: left;">TOTAL</td>
+            <td style="width: 57.4895%;">&nbsp;</td>
         </tr>
-        </tbody>
-        </table>
-        <br><br><br><br><br>
+    </tbody>
+</table>
+<form method="POST" action="{% url 'print_bill' %}" >
+    {% csrf_token %}
+    <input type="text" value="{{cust_pkg.order_id}}" name="v" readonly>
+    <button class="btn btn-primary">GENERATE BILL</button>
+  </form>
+{% endif %}
+{% endfor %}
+<br><br><br><br><br>
         <br><br>    
 <p>This is computer generated invoice and hence does not required signature or stamp.</p>
 </div>

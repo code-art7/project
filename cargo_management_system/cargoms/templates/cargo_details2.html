@@ -1,55 +1,36 @@
-<head>
-    <style>
-      table{
-      border-collapse: collapse;
-      width: 100%;
-    }
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid rgb(15, 2, 2);
-    }
-    </style>
-  </head>
-  
-
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
 
-{% block content1 %}
-<div class="d-flex justify-content-end ">
-  <a href="{% url 'logout' %}" class="btn btn-primary" style="margin: 5px;">LOG OUT</a>
-</div>
-
-<div class="d-flex justify-content-end ">
-    <a href="{% url 'sort_data' %}" class="btn btn-primary" style="margin: 5px;">SORT DATA</a>
-  </div>
-
-<div class="d-flex justify-content-end ">
-    <a href="{% url 'c_d_s' %}" class="btn btn-primary" style="margin: 5px;">ADD TO CONSIGNMENT DETAILS</a>
-  </div>
+{% block content %}
 
 {% endblock %}
 
-{% block content %}
-
-<div id="t">
-  <table>
+{% block content1 %}
+<div class="container">
+  <table class="table table-striped" border="1">
     <h4>CONSIGNMENT DETAILS</h4> <br>
     <tr>
       <td><b>CONSIGNMENT ID</b></td>
-      <td><b>ORDER ID</b></td>
       <td><b>PACKAGE RECEIVING DATE</b></td>
-      <td><b>DELIVERY SCHEDULE DATE</b></td>
+      <td><b>QTY</b></td>
+      <td><b>WEIGHT</b></td>
+      <td><b>BILL GENERATION</b></td>
     </tr>
     
     {% for pk in c_pkg %}
     <tr>
     <td>{{pk.c_id}}</td>
-    <td>{{pk.order_id}}</td>
     <td>{{pk.pkg_r_date}}</td>
-    <td>{{pk.d_sh_date}}</td>
+    <td>{{pk.c_quan}}</td>
+    <td>{{pk.pkg_weight}}</td>
+    <td>
+      <form method="POST" action="{% url 'bill_generate' %}" >
+        {% csrf_token %}
+        <input type="text" value="{{pk.order_id}}" name="v" readonly>
+        <button class="btn btn-primary">GENERATE BILL</button>
+      </form>
+    </td>
     </tr>
     {% endfor %}
   </table>
